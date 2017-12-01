@@ -1,0 +1,139 @@
+Why sort an array?
+By sorting an array, you can do binary search to get O(logn) search time for a specific element.
+
+What is insertion sort?
+given i = 0, treat 0..i-1 as sorted array. Add element i into sorted array in the correct position by swapping positions from i-1 to 0.
+does at most s*swap(j, j-1), where s is the current sorted array size, and j = current finding index.
+Runs in place.
+Runs at O(n^2).
+
+What is a selection sort?
+Treats 0..m as sorted array, and m..n as unsorted array.
+Algorithm finds the smallest element in array, and does swap(m+1, x), where m+1 = current sort position, x = smallest element.
+Runs in place.
+Runs at O(n^2)
+
+What is merge sort?
+Breaks down array into two sub arrays (divide by 2). 
+Recursive sort sub arrays, then on bubble up, merge the two sorted arrays into one big sorted array.
+
+so two parts:
+recurse(first half subarray)
+recurse(second half subarray)
+merge(first half, second half)
+return merged array
+
+runs at O(nlogn)
+
+What is heap sort?
+apply the heap rule to the array, and repeatedly remove the first element from the array and place it in the sorted array.
+Requires heapify and heapify bubble-down functions.
+Runs at O(nlogn). can be a bit tricky to implement.
+
+What is quick sort?
+Divide and conquer algorithm.
+Pick a random element as a pivot, or just the last element.
+Go through every element ensure that all elements < pivot are at the front of the array. Then swap pivot to end of this subarray.
+Recursively apply this to smaller subarray 0..p-1, and bigger subarray p+1..n, where p = pivot position.
+Runs at O(nlogn).
+
+What is bubble sort?
+Go 0..n, keep the biggest element. One iteration ends when you reach n-j, where j = # of iterations = # of largest elements found.
+Basically you "bubble up" the largest element you can find in the unsorted array.
+Runs at O(n^2).
+
+What is counting sort?
+Distribution sort.
+Go through array, and keep a tally for each type of element encountered.
+Then, just insert tally times for each type, where the types inserted in a sorted manner.
+O(|S| + n) where S = set of unique types.
+
+What is bucket sort?
+Generalized counting sort.
+Given buckets that match a range of elements, go through the array and put each element into the correct bucket.
+Then, recursively sort each bucket.
+Finally, combine all the sorted buckets into the final sorted array.
+Basic example is to sort numbers, where each bucket represents 0-9 for the ith digit position. 
+So if the numbers is 0-999, you would do 3 iterations: 0-9, 0-9X, 0-9XX. Do the most significant digit first because that matters the most.
+Runs at O(n^2), on average O(n).
+
+What is radix sort?
+Bucket sort in place.
+Sort from least significant digit, do bucket sort for the ith digit on the elements in list, while preserving order they were inserted.
+Then add the buckets in order just like bucket sort to produce a <sorted by digit> sorted array.
+Repeat from least to most significant digit.
+O(n*k), where n = # of elements, k = # of digits in largest element (can be treated as constant)
+
+
+
+
+
+
+
+What is binary search?
+starting from the middle of the sorted array, search for the target by looking in only the smaller or larger half of the subarray.
+
+Set L to 0 and R to n − 1.
+If L > R, the search terminates as unsuccessful.
+Set m (the position of the middle element) to the floor (the largest previous integer) of (L + R) / 2.
+If Am < T, set L to m + 1 and go to step 2.
+If Am > T, set R to m − 1 and go to step 2.
+Now Am = T, the search is done; return m.
+
+Runs at O(logn)
+
+What is depth first search? Recurisve? Iterative?
+Traversing a tree or graph by looking at the children first, current node last.
+Recursive:
+	Given node n, recursively check children first.
+	Once all children are done by reaching the end and coming back up, do operation on node n.
+	If working on a graph, use markers to check if node is done or not.
+Iterative:
+	Using a stack, start by adding the root to the stack.
+		Pop a node from the stack, that's the current node.
+		add its children into the stack.
+		do operations on current node.
+		repeat.
+
+What is breadth first search? Recurisve? Iterative?
+Traversing a tree or graph by depth based on the root. Every "loop" of the operations is all the nodes at depth d.
+Recursive:
+	none really. Call stacks is a stack, and BFS requires a queue. It's silly.
+Iterative:
+	Given a queue, start by adding root to queue.
+		get element from queue.
+		do its operations.
+		add all its children to queue.
+		Repeat.
+
+What is dijsktra's algorithm?
+An algorithm for finding the shortest path between two nodes in a graph.
+	For each node, store its minimum distance from root. Initialize as infinity. Root gets initialized as 0.
+	Use an array for storing nodes added to search. Add root to array.
+		Given the array, find the smallest edge that would add a new node to the array.
+		Add that node, and update all nodes' minimum distances. Update = min(node m.distance + edge, n.distance)
+			so basically either use this new path by going through another node, or keep existing path.
+		Repeat until reach target node.
+Runs at O( (E+V)*logV)
+
+What is A* (A star) algorithm?
+Algorithm used for pathfinding and graph traversal. Basically a brute force algorithm on all possible paths.
+
+Store a list of done nodes.
+Store a list of possible nodes to goto next.
+Store a list of the best edge so far for each node, will be used for optimal path once done.
+Store a list of minimum distances from start to that node.
+Store a list of heuristic cost estimate to go from that node to the target node.
+While there is possible nodes:
+	current = node in possible nodes with lowest cost estimate
+	move current node from possible to done
+	for all the neighbors of current
+		if neighbor is already done, don't bother
+		if neighbor not in possible list, add to possible list
+		update distance from start to neighbor node if going through current node is lower cost
+		store best edge for neighbor node
+		update cost estimate from neighbor node to target
+To get optimal path:
+	start from target
+		go backwards from list of best edges
+Runs at O(E), E = edges

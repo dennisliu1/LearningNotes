@@ -1,0 +1,355 @@
+Big-O notation
+
+What is Big-O Notation?
+A mathematical notation describing limiting behavior of a function when arguments head towards a value or infinity.
+It is the upper bound of a function.
+
+What is O(1) What is an example of it?
+Constant
+lookup variable contents
+
+What is O(logn) What is an example of it?
+logarithmic
+finding an element in a sorted array using binary search
+
+What is O(n) What is an example of it?
+linear
+reading every element in an array.
+
+What is O(nlogn) What is an example of it?
+- just nlogn
+mergesort, quicksort
+
+What is O(n^2) What is an example of it?
+quadratic
+doing bubble sort
+
+What is O(n!) What is an example of it?
+Factorial
+Brute forcing an NP complete problem like travelling salesman
+
+What is little-o notation?
+higher upper bound
+
+What is Big theta notation?
+high and low bounds
+
+What is small omega notation?
+lower lower bound
+
+What is Big Omega notation?
+lower bound
+
+
+
+computation complexity theory
+
+complexity class
+
+What is P running time?
+Polynomial time
+Problem that can be solved < O(N!) running time.
+
+What is NP running time?
+Nondeterministic polynomial time.
+problem solvable by non-deterministic turing machine in P time,
+or a problem that whose solution can be checked in P time.
+
+What is NP Hard?
+set of problems which are as least as hard as every other problem in NP space.
+
+What is NP complete?
+set of problems which are NP and NP hard.
+
+What is the P vs NP problem?
+No one has can prove, for or against, whether NP problems can be reduced to P problems.
+That is,
+No one can prove if > O(N!) problems can be reduced to < O(N!), or disprove it.
+
+
+What is the travelling salesman problem? What's the solution?
+Given a list of cities & distances between each pair of cities,
+find shortest possible route visiting each city exactly once and returns to the origin city?
+
+Solution
+brute-force search O(N!)
+Held-Karp Algorithm O(n^2 2^n)
+
+Approximates
+nearest neighbor greedy algorithm Theta(log|V|) *(V = # cities; stands for vertex)
+
+What is the Hamiltonian path problem? What's the solution?
+A problem in graph theory.
+Find a hamiltonian path, which is a path that visits each vertex exactly once
+
+Solution
+Brute force search O(N!)
+dynamic programming O(n^2 2^n)
+
+
+
+What is the knapsack problem?
+given a set of items, each with a weight and value, and the max weight the knapsack can carry,
+find the max value the knapsack can carry, where items' weight < max weight
+
+Solutions
+dynamic programming O(nW)
+
+Approximations
+greedy approximation
+
+
+What is the Boolean Satisfiability problem (SAT)? What are the solutions?
+Given a boolean formula, determine if it has a solution (satisfiable)
+
+Solutions
+the Conflict-Driven Clause Learning algorithm
+and others...
+
+
+What is the subset sum problem? What are the solutions?
+Given a set of integers, is there a non-empty subset whose sum is zero?
+
+Solutions
+naive O(2^N N)
+better O(2^(N/2))
+dynamic programming ~O(sN), s = sum we want to find
+
+Approximate
+between O(N), O(2^P), P = # bits?
+
+
+What is the graph coloring problem? What are the solutions?
+Given a graph, color it: assign each vertex with a color.
+No two vertex can be connected & have the same color.
+Find the minimum # of colors to fully color the graph.
+
+Solution
+Brute force: O(2^n n)
+
+What is the bin packing problem? what is the solution?
+given a list of objects with different volumes, and bins with volumne V, 
+find the minimum # of bins to use to pack all the objects.
+
+Solutions
+Brute force
+
+Approximations
+First Fit algorithm (greedy): approximation factor 2 (no more than 2x optimal)
+
+
+
+OOP
+	What is Object Oriented Programming?
+	A programming paradigm based on the concepts of Objects and their attributes and methods.
+
+	What is a class?
+	a blue print of attributes and methods.
+
+	What is an object?
+	instances of classes.
+
+	What is a property?
+	An attribute or method inside a class.
+
+	What is an attribute?
+	variables that store data, located in a class.
+
+	What is a method?
+	functions located in a class.
+
+	What is a class variable?
+	variable belonging to class as a whole; only one copy in class / objects.
+
+	What is a instance variable or attribute?
+	variable that belongs to the object; every object has their own copy.
+
+	What is a member variable?
+	class & instance variable.
+
+	what is a class method?
+	a function that belongs to the class as a whole; access only to class variables and function arguments.
+
+	What is a instance method?
+	a function that belongs to the object; can access member variables and function arguments.
+
+	What is dynamic dispatch?
+	the class is responsible for doing the lookup for the proper function to use given a method call.
+
+	What is encapsulation?
+	hides certain functions and data,  keeps them inside the object.
+	This makes them safe from outside misuse.
+
+	What is composition?
+	A composite = an object made up of smaller objects.
+	objects can contain other objects as instance variables.
+	This hides information from the user of the class, and is used for a variety of design patterns.
+	has-a relationship.
+
+	What is inheritance?
+	When an class or object takes on another class or object's properties.
+	is-a relationship.
+
+	What are ancestors and children in inheritance?
+	ancestor = classes inherited by X
+	children = classes inheriting from X
+
+	What is multiple inheritance?
+	When a class or object that can have more than one ancestor's properties.
+
+	What is Polymorphism (subtyping)?
+	the ability of an object to take on many forms.
+
+	What is parametric polymorphism?
+	Generics - ability for function or class to handle a range of types.
+
+	what is ad hoc polymorphism?
+	function that does different things given different inputs and combinations.
+	See function overloading.
+
+	What is Open recursion?
+	the ability for an object to call other methods on the same object, usually with "this" keyword.
+
+	What is function overloading?
+	Methods that support multiple definitions with the same name, that can do different things.
+
+	What is function overriding?
+	The ability to inherit class methods and replace the parent's method definition with another one.
+
+	What is late binding?
+	when a method is looked up at runtime.
+
+	What is early binding?
+	when a method is looked up at compile time.
+
+	What is an abstract type?
+	A type that cannot be instantiated directly.
+
+	What is an interface?
+	A collection of abstract methods.
+	Used as a requirement for classes to have certain methods supported.
+
+
+
+Threading
+	how to handle deadlock?
+		1. Process termination - abort processes involved in deadlock
+		2. Resource preemption - resources can be redirected to other processes to break deadlock
+
+	How to prevent Deadlock?
+		Remove one of the 4 conditions:
+		1. can drop mutual exclusion, so no resource is exclusive
+		2. can drop hold & wait, so resources apply for resources and lets system control when to give (so system can optimize) (could also time out / bounded timing)
+		3. can drop no preemption, so resources can be reallocated by aborting a process
+		4. can drop circular wait, determine partial ordering of resources or disable interrupts during critical sections of code
+
+		#2, #4 are the most likely, #1 is impossible for hardware related resources & #3 is hard for processes that require holding resources for a certain time
+
+	How to prevent race conditions?
+		explicitly check the input in their correct order
+
+	what are some lock contention issues?
+		multiple processes asking for lock, need a way to resolve it.
+
+		Lock granularity can help too.
+
+	What are the 4 conditions required for deadlock?
+		1. Mutual Exclusion - resources unsharable
+		2. Resource Holding - process holding onto resource and request other resources
+		3. No preemption - resource released only when process wants to
+		4. Circular Wait - each process waits for other resources to be done.
+
+		Thus processes hold partial set of resources, wait forever for others to finish, and never release their resources.
+
+	What is a lock?
+		A syncing mechanism enforcing limits to a resource in a concurrent environment.
+
+	What is a monitor?
+		OOP resource control class - semaphore concept for classes
+
+		- attributes are private
+		- methods execute with mutexes
+
+		How is it syncing?
+		- attributes are shared variables
+		- methods define critical sections, only 1 thread active on monitor at a time
+
+		Hoare monitors
+		- signal() switches from caller -> waiting thread
+		- condition waiting thread was waiting for must succeed when waiter executes
+		- signaler must restore monitor invariants before signaling
+		- if(empty) wait(condition)
+
+		Mesa monitors
+		- signal() places waiter on ready queue, signaler continues inside monitor
+		- condition not always true when waiter runs again(); must recheck conditional
+		- while(empty) wait(condition)
+
+	what is a mutex (mutual exclusion)?
+		a property of concurrency control, designed to prevent race conditions.
+
+		Used to ensure only one process is doing a critical section, so critical section is done only once and no other code is interfering while it is running
+
+	What is a semaphore?
+		A variable used to control access to a common resource for concurrent systems.
+
+		Generally keeps a resource count. Subtract to give to a process, add to return back to the pool.
+
+	What is a spinlock?
+		A lock which causes the process to wait in a loop repeatedly checking if lock is available.
+
+	What is are some lock overheads?
+		the extra resources used by locks
+
+		memory, space used
+		CPU time to create & destroy locks
+		time to acquire & release locks
+
+	What is deadlock?
+		A state in which members of a group wait for each other forever.
+
+	What is Livelock?
+		Same as deadlock, but the process states change constantly, just never progressing.
+
+	What is race condition?
+		A behaviour where the output is dependent on sequence, timing of uncontrollable events.
+
+		This would cause a bug when the order was not expected by developer.
+
+	What is resource starvation?
+		When a process cannot do its task because it cannot get its resources, usually constantly timing out or having other smaller processes always take the resource
+
+	What is the Banker's detection algorithm?
+		This is an algorithm for detecting deadlock, developed by Dijkstra.
+
+		available - # resources system has not allocated
+		allocated - # resources each process is currently holding
+		max - # resources each process can hold at most
+
+		Determine safe & unsafe states
+		Safe = if system can find a hypothetical set of requests by the processes that would allow them to get their max resources
+		Unsafe = if system cannot find safe state
+
+	What is the producer-consumer problem?
+
+		classic example of concurrency syncing issue.
+
+		Producer & consumer, share a common fixed size buffer queue.
+
+		If queue is full, either consumer or producer sleeps and stops consuming or producing.
+
+		Use semaphores to wake each other up when it is OK to continue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

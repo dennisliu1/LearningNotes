@@ -1,0 +1,311 @@
+
+What are the types in JS?
+primitives
+	boolean, number, string, null, undefined
+	true, false
+object
+
+What are the type literals in JS?
+#.#[eE][+-]#
+01234567
+0xFF
+'str'
+"str"
+obj = {
+	1: "2"
+}
+true
+false
+regex = /pattern/gim;
+function() { }
+
+How does number work?
+#.#[eE][+-]#
+Numbers are always 64 bits.
+
+What is NaN? How does it work?
+Not a number.
+any math operation with NaN carries it over.
+typeof NaN = 'number'
+
+How do you check for NaN?
+isNaN(x);
+
+What is Infinity? How does it work?
+When a number goes beyond the Number type bounds.
+any math operation with Infinity carries it over.
+1/0
+typeof Infinity = 'number'
+
+What is the math operators?
+1 + 1 = 2  (note that both MUST be numbers, otherwise it will concat)
+4 / 2 = 2  (/, *, % will autoconvert to number)
+2 * 5 = 10
+8 % 3 = 2
+i++;
+i--;
+
+What is the if else-if else operator?
+if(b1) { }
+else if(b2) { }
+else {}
+
+What is the for loop?
+var i;
+for(i = 0; i < 10; i++) {}
+for(i in o1) {}
+
+What is the while loop?
+while(cond) {}
+do {} while(cond)
+
+What is the switch case statement?
+switch(var1) {
+	case 1:
+		break;
+	default
+		break;
+}
+
+what is the try catch finally exception?
+try { }
+catch(e) { }
+finally {}
+throw {
+	'type': 'blahError',
+	'msg': 'this is an error'
+}
+throw 500;
+throw false;
+throw EvalError();
+
+How do you delete variables or elements?
+delete arr1[10];
+delete num1;
+
+How do you return?
+return;
+return 1;
+
+What is the difference between ==, != and ===, !==?
+== !=    : equal literal, so are they the same object?
+===, !== : equal content, so do content comparison
+
+What are functions in JS?
+functions are actuall objects in JS.
+function() {}
+
+if assigning it to a variable, it's an anonymous function.
+if assigning in the global level, its scanned beforehand.
+
+What are arguments for functions?
+arguments are actually optional, so the function header doesn't have to specify arugments.
+arguments is actually an object that's array like. so its indexed, and has length.
+arguments.callee
+arguments.length
+arguments[i]
+
+Is there overloading in JS?
+no there is not, because the argument definition doesn't matter.
+
+Is there overriding in JS?
+yes, but only if the prototype has the function. Still tricky too, as they are dynamic.
+
+What is a name in JS?
+[a-zA-Z][a-zA-Z0-9_]*
+
+What are objects in JS?
+Objects are a map with key/values and prototypes.
+object[key]
+
+What is the prototypes in the object?
+object.prototype =  object's prototype, used for object definition. All objects have these methods & variables.
+object.[[prototype]] = object's inheritance prototype.
+
+What is the this variable?
+this = used for self reference.
+
+How do you access the parent?
+use object.prototype
+
+How do you get the keys of an object?
+Object.Keys(obj);
+Object.getOwnPropertyNames(obj);
+
+What is a object constructor?
+obj.prototype.constructor = special method called when creating an object with
+obj = new ClassName();
+
+What is the difference between creating a variable with var and not using var?
+var obj = 1;
+obj = 2;
+
+without var, the variable is global.
+with var, it's local to the scope.
+
+What are some Object functions?
+Object.is(obj1, obj2)
+Object.assign(target, src1, src2, ...) - copy properties to target, not prototype
+Object.create(targetPrototype, extraPropertiesObj) - copy prototype
+Object.defineProperty(obj, 'propertyName', descriptor)
+	descriptor = {
+		configurable: false,    // if property can be deleted, type changed
+		enumerable: false,      // shows up in for...in
+		value: undefined,       // stored value; can be any valid value
+		writable: false,        // if value can be changed
+		get: undefined,         // getter function
+		set: undefined          // setter function
+	}
+obj = Object.defineProperties(obj, props)
+	props = {
+		'propertyName': descriptor,
+		'propertyName2': descriptor
+	}
+
+Object.getPrototypeOf(obj)
+Object.setPrototypeOf(obj)
+
+Object.keys(obj)
+Object.entries(obj)
+Object.values(obj)
+
+obj.hasOwnProperty('propertyName')
+obj.isPrototypeOf(obj2)
+
+What are some function methods?
+result = func.apply(thisArg, [argsArr])                    // call function with arguments in argsArr & this context; calls it in a chain
+newFunc = func.bind(thisArg, preArg1, preArg2, ...)        // creates new function with thisArg context & can have partially filled arguments
+result = func.call(thisArg, arg1, arg2, ...)               // call function with arguments & this context
+stringRepresent = func.toString()                          // string representation of function
+
+
+What are the array functions in JS?
+Array.isArray(arr)
+arr.length
+arr.pop()
+arr.push(e1, e2, ...)
+arr.shift()
+arr.concat(var1, val2, ...)
+arr.indexOf()
+arr.splice(start, deletecount, var1, var2, ...)
+arr.slice(start, end)
+arr.sort()
+arr.unshift(e1,e2,e3, ..) - add to front of array
+
+How would you use array as a stack?
+last = arr.pop()
+arr.push(e)
+
+How would you use array as a queue?
+first = arr.shift()
+arr.push(e)
+
+What are the iteration methods for arrays?
+arr.entries() = list of key, values
+arr.keys() =  list of keys
+arr.values() = list of values
+
+arr.every(function(element, index, array){}, thisArg*) = if all elements pass
+arr.some() = there exists one element passing
+arr.filter(function(element, index, array){}, thisArg*) = get passing elements
+arr.forEach() = just use all, no return
+
+arr.map(function(element, index, array){}, thisArg*) = juse use all, returns a value
+arr.reduce(function(accumulator, curr, index, array){}, initValue) = accumulator function on list, 0 to N
+arr.reduceRight(function(accumulator, curr, index, array){}, initValue) = accumulator function on list N to 0
+
+arr.find() = find the element
+arr.findIndex() = find the element and return index
+
+What are the string functions in JS?
+str.endsWith()
+str.startsWith()
+str.match(regexp)
+str.search(regexp)
+
+str.replace(regexp|substrPattern, newSubstr|func)
+str.slice(start, end*)
+
+str.charAt()
+str.concat(str)
+str.split(regexp|str)
+str.substr(str, length)
+str.substring(start, end*)
+
+str.trim()
+
+
+What are the scopes in JS?
+there is only global, function and with().
+But with() sucks, so just global and function really.
+
+What are the access modifiers in JS?
+there are none, there is only public.
+
+
+What are the JSON serialization methods?
+JSON.parse(str)
+JSON.stringify(obj)
+
+What is the typeof operator?
+returns the type of the variable.
+
+How do you use regex in JS?
+result = regex.exec(str)
+bool = regex.test(str)
+
+What are some Math functions?
+Math.floor()
+Math.ceil()
+Math.pow()
+Math.log()
+
+How do you get random numbers in JS?
+Math.random = [0,1)
+
+What are callbacks in JS?
+some functions are async, so they have a function they call when they are done.
+
+What are some ways to do callbacks in JS?
+setTimeout(function, millisec)
+
+There is no true native async function, JS does it natively.
+
+
+How do you call a function definition immediately?
+(function(arg) {
+	// do stuff here
+})(arg);
+
+What is the difference between call(), apply() & bind()?
+call(this, args) = invoke a function in a different context, args on top level.
+apply(this, argsList) = invoke a function in a different context, args in a list.
+bind(this, args) = create a partially filled in function.
+
+What is a promise? How do you use it?
+A promise is a nice way of dealing with async functions.
+
+What are the methods used in promises?
+new Promise(function(resolve, reject))
+Promise.resolve(returnVal) = blank promise that succeeds.
+Promise.reject(returnVal) = blank promise that fails.
+p.then(function(prevResult), function(error)) = chaining do something here. 
+p.all(promiseList) = p.then() on list of promises but waits for all to be done, gets result list
+p.race(promiseList) = same as p.all(), but returns the first to finish
+p.catch(function(error)) = catches errors
+p.finally(function())
+
+What are the states of a promise?
+fulfilled = promise done, success
+rejected = promise done, failed
+pending = promise not done
+settled = promise done
+
+how do you do chaining in JS?
+obj.a()
+	.b()
+	.c()
+	.d()
+	...
+This takes advantage of returning the same object, or returning the result set.
+So like a nice version of piping.

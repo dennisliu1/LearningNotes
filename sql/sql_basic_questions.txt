@@ -1,0 +1,407 @@
+
+What is SQL?
+structured query language, used by relational databases to manipulate the database.
+
+What is a database?
+a structured collection of data.
+
+What is a table?
+a structured list consisting of items numerated in rows, and content per item stored as columns.
+
+What is a schema?
+a definition for a table, consisting of the column definitions and extra special relationships and parameters.
+
+How do you show all databases?
+SHOW DATABASES;
+
+How do you use a database?
+USE database;
+
+How do you create a database?
+CREATE DATABASE IF NOT EXISTS database_name;
+CREATE DATABASE database_name;
+
+How do you delete a database?
+DROP DATABASE IF EXISTS database_name;
+DROP DATABASE database_name;
+
+How do you create a table?
+CREATE TABLE IF NOT EXISTS table_name(
+	column1 INT NOT NULL AUTO INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE table_name(
+	column1 INT NOT NULL AUTO INCREMENT PRIMARY KEY
+);
+
+List the common types of data supported by SQL.
+CHAR
+VARCHAR
+TEXT
+TINYINT
+INT
+BIGINT
+FLOAT
+DOOUBLE
+DECIMAL
+DATE
+DATETIME
+ENUM
+SET
+BOOLEAN
+JSON
+
+How do SET columns work in SQL?
+column_name ENUM('value1', 'value2', 'value3') ... 
+column accepts only these values.
+
+How do ENUM columns work in SQL?
+column_name SET('value1', 'value2', 'value3') ...
+column accepts these values or any combination of them.
+
+How do JSON columns work in SQL?
+column_name JSON ...
+
+How do you query JSON data?
+SELECT column_name->'$.path'
+SELECT column_name->>'$.path'  -- result removes double quotes wrapping
+
+How do you clear a table?
+TRUNCATE TABLE table_name;
+
+How do you delete a table?
+DROP TABLE table_name;
+
+What are table constraints? Examples?
+Conditions on top of a table that all data entered must meet.
+Can also add extra functionality on top.
+
+What is a NOT NULL constraint?
+require column have no NULL data inserted.
+column_name ... NOT NULL
+
+What is a primary key constraint?
+a column that uniquely identifies each row in the table.
+table_name PRIMARY KEY
+PRIMARY KEY(table_name)
+
+What is a foreign key constraint?
+column(s) that requires the data to match another tables' contents.
+Used for subdata that exists only if the other table has contents.
+Like customers and customer orders; orders only exist if there's customers.
+CREATE TABLE table_name(
+	CONSTRAINT constraint_name
+	FOREIGN KEY foreign_key_name (columns)
+	REFERENCES parent_table(columns)
+	ON DELETE SET NULL -- SET NULL, NO ACTION, RESTRICT, CASCADE
+	ON UPDATE SET NULL -- SET NULL, NO ACTION, RESTRICT, CASCADE
+);
+SET NULL = sets field to null
+NO ACTION = reject action
+RESTRICT = reject action
+CASCADE = recursively applies action
+
+What is a unique constraint?
+all values coming in must be unique, and not already be entered.
+
+...
+UNIQUE(column1, column2)
+
+What is a CHECK constraint?
+if inserting a value into the column, value must satisfy condition
+
+CREATE TABLE IF NOT EXISTS parts (
+    ...columns....
+    CHECK (price >= cost)
+);
+
+What are table indexes?
+A table that stores lookup locations of data.
+This can be used to quickly reference often used data, increasing lookup speed.
+
+CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name
+USING [BTREE | HASH | RTREE] 
+ON table_name (column_name [(length)] [ASC | DESC],...)
+
+UNIQUE = all values in index must be unique, or duplicate NULL
+FULLTEXT = for searching long text columns
+SPATIAL = spatial data
+
+BTREE, HASH, RTREE = what type of tree to use for lookup.
+
+
+What is ALTER TABLE? Examples?
+ALTER TABLE table_name CHANGE COLUMN old_column_id new_column_id INT(11) NULL;
+ALTER TABLE table_name 
+	ADD COLUMN column_id INT(11) NULL FIRST,
+	ADD COLUMN column_id2 INT(11) NULL AFTER column_id,
+	ADD COLUMN column_id INT(11) NULL;
+ALTER TABLE table_name DROP COLUMN column_id;
+ALTER TABLE table_name RENAME TO new_table_name;
+
+ALTER TABLE table_name CHANGE COLUMN old_column_id new_column_id INT(11) NULL;
+ALTER TABLE table_name 
+	ADD COLUMN column_id INT(11) NULL FIRST,
+	ADD COLUMN column_id2 INT(11) NULL AFTER column_id,
+	ADD COLUMN column_id INT(11) NULL;
+ALTER TABLE table_name DROP COLUMN column_id;
+ALTER TABLE table_name RENAME TO new_table_name;
+
+
+What is the SELECT statement? Basic format?
+get data from the database.
+
+SELECT * FROM table1;
+SELECT column1, column2 FROM table1, table2;
+SELECT 
+    column_1, column_2, ...
+FROM
+    table_1
+[INNER | LEFT |RIGHT] JOIN table_2 ON conditions
+WHERE
+    conditions
+GROUP BY column_1
+HAVING group_conditions
+ORDER BY column_1
+LIMIT offset, length;
+
+What is an alias?
+A name to refer to a specific column or table, for readability and reference.
+Column:
+	SELECT 
+	 [column_1 | expression] AS descriptive_name
+	FROM table_name;
+table:
+	SELECT * FROM table_name AS table_alias;
+
+
+What is a join?
+A querying of data from two or more tables using specific roles that combine their datasets together.
+
+What is an inner join?
+A join where both the left and right table data needs to satisfy the condition to be returned.
+So if t1.row = True && t2.row = True, then return.
+
+SELECT 
+	column1, column2 
+	FROM 
+		table1
+			INNER JOIN table2 ON table1.column1 = table2.column1 -- row = join condition is satisfied
+			INNER JOIN table3 USING (sharedColumn); -- generally used for foreign keys
+
+What is an outer join?
+A join where both left & right table data do not match.
+So if not(t1.row = True && t2.row = True), then return
+
+What is a left join?
+A join where all rows in the left table will be returned. If no matching data from right table, set NULL
+SELECT 
+	column1, column2 
+	FROM 
+		table1
+			LEFT JOIN table2 ON join_condition1; -- table1 always shows in results, regardless of join condition (padded with NULL data)
+
+What is a right join?
+A join where all rows in the right table will be returned. If no matching data from right table, set NULL
+SELECT 
+	column1, column2 
+	FROM 
+		table1
+			RIGHT JOIN table2 ON join_condition1; -- table2 always shows in results, regardless of join condition (padded with NULL data)
+
+
+What is a cross join?
+Cartesian join. So every table 1 row x table 2 row. No condition, use where instead.
+SELECT 
+	column1, column2 
+	FROM 
+		table1 t1
+			CROSS JOIN table1 t2;  -- no conditions allowed; returns cartesian product
+
+What is a self join?
+query filtered data from a table joined with itself.
+Use Alias to refer to each view (variable) of the table reference separately.
+
+SELECT 
+	column1, column2 
+	FROM 
+		table1 t1
+			INNER JOIN table1 t2 ON join_condition1; -- self join using same table
+
+What is the WHERE clause?
+defines a filter for table data, so only the rows that pass this condition get returned.
+SELECT * FROM table1 WHERE condition;
+
+What basic operators are allowed in the WHERE clause?
+var1 = var2
+var1 != var2
+num1 < num2
+num1 > num2
+num1 <= num2
+num1 >= num2
+
+What conditional operators are allowed in the WHERE clause?
+NOT cond1
+cond1 AND cond2
+cond1 OR cond2
+column1 IN ('v1', 'v2', ...)
+BETWEEN val1 AND val2
+column1 LIKE '%str%'
+val1 IS NULL
+
+How does the LIKE operator in the WHERE clause work?
+basic regular expression.
+value LIKE 'matching'
+% = any string of chars
+_ = any single char
+\%, \_ = escape characters for % and _
+
+How does the GROUP BY clause work?
+groups the filtered row data into summary rows.
+Each group returns one row, often using an aggregate function.
+If not, it will group by the unique values of that column.
+
+SELECT 
+    c1, c2,..., cn, aggregate_function(ci)
+FROM
+    table
+WHERE
+    where_conditions
+GROUP BY c1 , c2,...,cn;
+
+How does the HAVING clause work?
+adds a condition to the groups returned by the GROUP BY clause.
+SELECT 
+    c1, c2,..., cn, aggregate_function(ci)
+FROM
+    table
+WHERE
+    where_conditions
+GROUP BY c1 , c2,...,cn
+HAVING having_condition;
+
+What is the ORDER BY clause?
+Rearranges the order of the results by specific column(s).
+The order they are rearranged in is left to right, with keywords
+ASC (ascending) or DESC (descending) of the natural order of the column.
+
+SELECT column1, column2,...
+FROM tbl
+ORDER BY column1 [ASC|DESC], column2 [ASC|DESC],...
+
+What is the LIMIT clause?
+restricts the number of results returned by the SELECT query.
+
+SELECT 
+    column1,column2,...
+FROM
+    table
+LIMIT offset , count;
+
+offset starts from 0, and is optional.
+offset = # of rows to skip (not return) before counting and returning.
+count = # of results returned
+
+
+What is the INTO clause?
+Copies the SELECT results into a new table
+
+SELECT column1, column2, column3, ...
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+
+
+What is UNION and UNION ALL?
+combines multiple SELECT result sets into one.
+returns only unique rows.
+If join combines horizontally, union combines vertically.
+UNION ALL keeps the repeats.
+
+SELECT column_list
+UNION [DISTINCT | ALL]
+SELECT column_list
+UNION [DISTINCT | ALL]
+SELECT column_list
+...
+[ORDER BY...]
+
+What is a subquery?
+A query inside a query, used in:
+SELECT FROM,
+SELECT WHERE conditions,
+INSERT,
+UPDATE,
+DELETE
+
+What is a derived table?
+A virtual table returned from the SELECT statement.
+You must assign it an alias to use it.
+
+
+What is the INSERT & INSERT IGNORE statement?
+insert a data entry into a table.
+
+INSERT INTO table(column1,column2...)
+VALUES (value1,value2,...),
+       (value1,value2,...);
+
+
+The INSERT IGNORE statement ignores errors when inserting, skipping 
+INSERT IGNORE INTO table(column1,column2...)
+VALUES (value1,value2,...),
+       (value1,value2,...);
+
+What is the UPDATE statement?
+Updates values in a table's data.
+
+UPDATE [LOW_PRIORITY] [IGNORE] table_name 
+SET 
+    column_name1 = expr1,
+    column_name2 = expr2,
+    ...
+WHERE
+    condition;
+
+
+What is the UPDATE JOIN statement?
+updates values for table(s) using a join.
+
+UPDATE T1, T2,
+[INNER JOIN | LEFT JOIN] T1 ON T1.C1 = T2. C1
+SET T1.C2 = T2.C2, 
+    T2.C3 = expr
+WHERE condition
+
+What is the DELETE statement?
+deletes data entries from a table given the condition.
+
+DELETE FROM table_name
+WHERE condition
+[ORDER BY ...]
+[LIMIT ...];
+
+What is the DELETE with joins?
+delete from table(s) using a join.
+
+DELETE T1, T2
+FROM T1
+INNER JOIN T2 ON T1.key = T2.key
+WHERE condition;
+
+What is the REPLACE statement?
+if the row does not exist, REPLACE inserts a new row.
+if the row already exists, REPLACE deletes old row and inserts new row. Or just updates it.
+
+REPLACE INTO table
+SET column1 = value1,
+    column2 = value2;
+
+
+
+
+
+
+
+
+

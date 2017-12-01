@@ -1,0 +1,529 @@
+How do you create a variable?
+DECLARE var type[size];
+@var (@ keyword) for session variables, not inside a procedure or function.
+
+What is a prepared statement?
+
+http://www.mysqltutorial.org/mysql-prepared-statement.aspx
+A compiled query that executes faster than reading the query every time.
+PREPARE
+EXECUTE
+DEALLOCATE PREPARE
+
+PREPARE statement1 FROM 'SELECT SQRT(POW(?,2) + POW(?,2)) AS hypotenuse';
+SET @a = 3;
+SET @b = 4;
+EXECUTE statement1 USING @a, @b;
+DEALLOCATE PREPARE statement1;
+
+SET @s = 'SELECT SQRT(POW(?,2) + POW(?,2)) AS hypotenuse';
+PREPARE statement1 FROM @s;
+SET @a = 3;
+SET @b = CONCAT('1', @a);
+EXECUTE statement1 USING @a, @b;
+DEALLOCATE PREPARE statement1;
+
+What is a stored procedure?
+A stored procedure is a function stored for reuse in the system.
+
+DELIMITER //
+CREATE PROCEDURE getAllProducts(IN countryName VARCHAR(255), OUT cost INT(10), INOUT userName VARCHAR(255))
+BEGIN
+	SELECT * FROM table1
+END //
+DELIMITER ;
+
+How do you use a stored procedure?
+CALL procedure1();
+
+How are arguments written in stored procedures?
+CREATE PROCEDURE name(
+	IN|OUT|INOUT argument1
+)
+In = input only
+Out = return only
+Inout = pass by reference
+
+How do you declare variables in stored procedures?
+DECLARE variable_name datatype(size) DEFAULT default_value;
+
+How do you use variables in stored procedures?
+can set it and use it in queries now.
+SET total_count = 10;
+
+What is the scope of variables in stored procedures?
+variables in stored procedures stay inside the BEGIN END block.
+
+What is a session variable?
+a variable with the @ prefix. It stays for the session (user login to user logout)
+use these for general scripting.
+
+What is the if else-if else statements in stored procedures?
+DELIMITER //
+CREATE PROCEDURE getAllProducts(IN id INT(1), OUT cost INT )
+BEGIN
+	IF id > 30 THEN
+		SET cost = 10;
+	ELSEIF id > 10 THEN
+		SET cost = 5;
+	ELSE
+		SET cost = 1;
+	END IF;
+END //
+DELIMITER ;
+
+What is the case when-then else statements in stored procedure?
+DELIMITER //
+CREATE PROCEDURE getAllProducts(IN id INT(1))
+BEGIN
+	CASE id
+		WHEN 10 THEN
+			SET cost = 10;
+		WHEN 20 THEN
+			SET cost = 20;
+		ELSE
+			SET cost = 1;
+	END CASE
+END //
+DELIMITER ;
+
+What is the while do loop in stored procedures?
+DELIMITER //
+CREATE PROCEDURE getAllProducts(IN id INT(1), OUT cost INT(1))
+BEGIN
+	DECLARE x INT;
+    SET x = 100;
+    SET cost = 0;
+	WHILE x > 0 DO
+		SET cost = cost + 1;
+		SET x = x - 1;
+    END WHILE
+END //
+DELIMITER ;
+
+What is the repeat-until loop in stored procedures?
+DELIMITER //
+CREATE PROCEDURE getAllProducts(IN id INT(1), OUT cost INT(1))
+BEGIN
+	DECLARE x INT;
+    SET x = 100;
+    SET cost = 0;
+    
+	REPEAT
+		SET cost = cost + 1;
+		SET x = x - 1;
+	UNTIL x <= 0
+		END REPEAT;
+END //
+DELIMITER ;
+
+What is the LOOP operator in stored procedures?
+label1: LOOP
+use LEAVE label1; to leave the loop
+use ITERATE label1; to skip to next loop
+
+DELIMITER //                           -- 
+CREATE PROCEDURE getAllProducts(IN id INT(1), OUT cost INT(1))
+BEGIN
+	DECLARE x INT;
+    SET x = 100;
+    SET cost = 0;
+    
+	loop1: LOOP
+		SET cost = cost + 1;
+		SET x = x - 1;
+        
+		IF x <= 0 THEN
+			LEAVE loop1; -- break
+		ELSE
+			ITERATE loop1; -- continue
+		END IF
+	END LOOP;
+END //
+DELIMITER ;
+
+
+How do you show all stored procedures?
+SHOW PROCEDURE STATUS;
+
+How do you find a specific stored procedure?
+SHOW PROCEDURE STATUS WHERE db = 'classicmodels';
+SHOW PROCEDURE STATUS WHERE name LIKE '%product%';
+
+How do you show the stored procedure code?
+SHOW CREATE PROCEDURE procedureName;
+
+What are the LEAVE AND ITERATE keywords?
+LEAVE = break 
+ITERATE = continue
+can be used in LOOP, REPEAT, WHILE
+can also be used in BEGIN..END
+
+What is a cursor?
+Handles a result set inside a stored procedure
+works in stored procedures, stored functions, triggers
+read only, non-scrollable, and points to actual data (depends on DMBS)
+
+DECLARE cursor CURSOR FOR SELECT_statement;
+OPEN cursor;
+FETCH cursor INTO variables list;
+CLOSE cursor;
+
+DELIMITER //                           -- 
+CREATE PROCEDURE getAllProducts(IN id INT(1), OUT cost INT(1))
+BEGIN
+	DECLARE doneCursor INT(1) DEFAULT 0;
+	DECLARE c1 varchar(100) DEFAULT "";
+    DECLARE c2 varchar(100) DEFAULT "";
+    
+	DECLARE cursor1 CURSOR FOR SELECT column1,column2 FROM table1;
+    DECLARE CONTINUE HANDLER 
+		FOR NOT FOUND SET doneCursor = 1; -- when cannot find any more rows, do this
+        
+	DECLARE EXIT HANDLER
+		FOR SQLWARNING SET doneCursor = 1; -- when the code block is done & there's an SQL Warning raised
+	
+    DECLARE CONTINUE HANDLER
+		FOR SQLEXCEPTION LEAVE loopMe; -- when code loop hits an SQL Exception
+        
+	DECLARE CONTINUE HANDLER FOR 1062
+		SELECT 'Error, duplicate key occurred' -- 1062 = error code
+	
+    -- special manual throw exception
+    DECLARE divide_by_zero CONDITION FOR SQLSTATE '22012';
+	DECLARE CONTINUE HANDLER FOR divide_by_zero
+		RESIGNAL SET MESSAGE_TEXT = 'divided by zero';
+    
+	OPEN cursor1;
+    
+    loopMe: LOOP
+		FETCH cursor1 INTO c1, c2; -- should match SELECT statement
+        
+        IF doneCursor = 1 THEN
+			LEAVE loopMe;
+        END IF
+        
+        IF doneCursor > 1 THEN
+			SIGNAL SQLSTATE '45000' 
+				SET MESSAGE_TEXT = 'something went horribly wrong' -- 45000 = USER defined exception
+			SIGNAL divide_by_zero; -- raises SQL Exception
+        END IF
+	
+    END LOOP loopMe;
+    
+	CLOSE cursor1;
+END //
+DELIMITER ;
+
+
+what are the cursor statements and what do they do?
+1. DECLARE cursor CURSOR FOR SELECT_statement;
+2. OPEN cursor;
+3. FETCH cursor INTO variables list;
+4. CLOSE cursor;
+
+1. declares a cursor variable for use using the select statement.
+2. initialize result set used by cursor
+3. get a row from the result set, then move cursor to next row. Returns the data into the variables list.
+	FETCH cursor INTO c1,c2,c3,...
+4. close the cursor
+
+
+What are HANDLER in SQL and what do they do?
+Used for error handling.
+DECLARE action HANDLER FOR condition_value statement;
+
+action = CONTINUE|EXIT
+condition_value = 
+	error code
+	SQLSTATE value
+	SQLWARNING, NOTFOUND, SQLEXCEPTION
+	named condition associated with error code or SQLSTATE value
+statement = handle this event
+
+So for example,
+1. SQLWARNING while running, but doesn't end procedure
+	DECLARE CONTINUE HANDLER FOR SQLWARNING ...
+2. SQLEXCEPTION that crashes the procedure
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+3. NOTFOUND happened when the cursor finished returning all rows
+	DECLARE EXIT HANDLER FOR NOTFOUND
+
+
+What is the CONTINUE | EXIT actions for HANDLER in SQL?
+CONTINUE = execution of the BEGIN..END block continues
+EXIT = execution of the block ends
+
+How do you raise an error in the stored procedure?
+
+SIGNAL SQLSTATE | condition_name;
+SET condition_information_item_name_1 = value_1,
+    condition_information_item_name_1 = value_2, etc;
+
+...
+
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'message here';
+
+45000 is the user-defined exception
+
+What is the RESIGNAL statement?
+Used in handlers only.
+Raises the signal upward the chain through the handler.
+
+DECLARE ... HANDLER FOR ... RESIGNAL [SET condition1, condition2, ...];
+
+
+What is a stored function?
+special kind of function that returns a signal value
+Can use anywhere in SQL statements.
+
+CREATE FUNCTION function_name(param1,param2,…)
+    RETURNS datatype
+   [NOT] DETERMINISTIC
+ BEGIN
+ ..statements..
+ END
+
+
+Can you specify IN, OUT, INOUT for stored functions?
+No you cannot specify IN, OUT, INOUT for stored functions.
+
+What is a trigger?
+a set of SQL statements that execute whenever event occurs.
+CREATE TRIGGER trigger_name trigger_time trigger_event
+ ON table_name
+ FOR EACH ROW [FOLLOWS|PRECEDES another_trigger_name]
+ BEGIN
+ ...
+ END;
+
+trigger_time = BEFORE|AFTER
+trigger_event = INSERT|UPDATE|DELETE
+
+
+What kinds of triggers can you create?
+BEFORE INSERT
+AFTER INSERT
+BEFORE UPDATE
+AFTER UPDATE
+BEFORE DELETE
+AFTER DELETE
+
+What are some good naming conventions for triggers?
+tableName_TIMING_OPERATION
+TIMING_tableName_OPERATION
+
+be consistent with it too.
+
+What can triggers not do?
+show a database or table
+cannot do transaction related stuff (rollbacks, commits, etc.)
+prepared statements
+dynamic SQL statements
+
+What does the FOLLOW or PRECEDES keywords do?
+allows triggers to be chained in a linked list of triggers.
+
+
+how do you show the triggers?
+SHOW TRIGGERS;
+SHOW TRIGGERS FROM table_name;
+SHOW TRIGGERS FROM table_name WHERE `table` = 'table_name';
+SHOW TRIGGERS FROM table_name LIKE '%BEFORE%';
+
+How do you delete a trigger?
+DROP TRIGGER table_name.trigger_name;
+
+What is an event in SQL?
+A trigger that is based on time instead of table operations.
+Basically Cron but in SQL.
+
+CREATE EVENT [IF NOT EXIST]  event_name
+ON SCHEDULE schedule
+[STARTS schedule 
+ENDS schedule]
+[ON COMPLETION PRESERVE]
+DO
+event_body
+
+schedule = 
+	AT time [+ INTERVAL time_value time_unit]
+	EVERY time_value time_unit
+
+How do you see events being run?
+SHOW EVENTS FROM database_name;
+
+What does ON COMPLETION PRESERVE in the scheduled event statement do?
+When scheduled events are done, they disappear from the EVENTS table.
+So adding ON COMPLETION PRESERVE keeps them in the EVENTS table.
+
+
+How do you see the events in SQL?
+SHOW PROCESSLIST;
+
+How do you turn on or off the events in SQL?
+SET GLOBAL event_scheduler = ON|OFF;
+
+How do you delete scheduled events?
+DROP EVENT [IF EXIST] event_name;
+
+
+How do you modify an existing event?
+ALTER EVENT event_name
+	ON SCHEDULE schedule
+	[STARTS schedule 
+	ENDS schedule]
+	[ON COMPLETION PRESERVE]
+	[RENAME TO new_event_name]
+    ENABLE|DISABLE
+	DO
+	event_body
+
+What is a view in SQL?
+A view is a virtual mini-table result set.
+use it to get a curated and filtered perspective on the data.
+Or abstract certain parts of it for a better understanding.
+Or hide certain data from the user.
+
+CREATE 
+   [ALGORITHM = {MERGE  | TEMPTABLE | UNDEFINED}]
+VIEW [database_name].[view_name] 
+AS
+[SELECT  statement]
+[WITH [CASCADED|LOCAL] CHECK OPTION]
+
+What kinds of views are there?
+undefined - just lets system choose which is best
+merge     - the view's virtual table query and view statements are combined into one big query
+temptable - the view queries for the virtual table first, then the view statements run on top of it.
+
+What can the merge view do and not do?
+useful for making updates when using views, so they seem just like actual tables!
+however, they're very restricted and cannot do aggregates.
+So they're good abstract tables that can update the underlying tables, just very simple.
+
+What can the temptable view do and not do?
+Since this view creates a temporary table, it can do aggreates, joins, subqueries and other more complex queries.
+However, it does not do any updating of the actual tables.
+So they're good read only tables.
+
+How do you see all tables and views?
+SHOW FULL TABLES;
+
+What does the WITH CHECK OPTION, and extra CASCADED or LOCAL options do?
+Views can reference views in the SELECT statement, so the recursive views can update the tables too.
+But since there are certain columns and data that is not visible because of the SELECT filtering,
+there's some data we might not want to update (we want to hide that from the user).
+
+WITH CHECK OPTION = stops updates, inserts to rows not visible through the view (SELECT not returning it)
+WITH CASCADED CHECK OPTION = cascades checks for used views, so no updating rows if it doesn't satisfy all views in stack
+WITH LOCAL CHECK OPTION = only current view, so no need to check rest of view stack
+
+How do you alter a view?
+ALTER
+ [ALGORITHM =  {MERGE | TEMPTABLE | UNDEFINED}]
+  VIEW [database_name].  [view_name]
+   AS 
+ [SELECT  statement]
+
+How do you delete a view?
+DROP VIEW IF EXISTS database1.view1;
+DROP VIEW database1.view1;
+
+how do you see the view definition?
+SHOW CREATE VIEW database1.view1;
+
+What is full text searching in SQL?
+searching through paragraphs and long texts can be very slow.
+SQL can use an index for searching, helping speed up a lot.
+
+What is the minimum size word size for full text searching?
+min word size is 4.
+
+How do you add full text searching for a column in creating table statement?
+CREATE TABLE table1(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title varchar(255) NOT NULL,
+    content text,
+	FULLTEXT KEY search_content (content)
+);
+
+How do you add full text searching for an existing table to a column?
+ALTER TABLE table1
+	ADD FULLTEXT(content);
+
+CREATE FULLTEXT INDEX indexName
+	ON table1(column1, column2);
+
+How do you delete full text searching from a column?
+ALTER TABLE table1
+	DROP INDEX search_content;
+
+How do you use the full text searching?
+SELECT * FROM table1
+	WHERE MATCH(column1, column2) AGAINST('value1,value2');
+
+SELECT * FROM table1
+	WHERE MATCH(column1, column2) AGAINST('value1' IN BOOLEAN MODE);
+
+SELECT * FROM table1
+	WHERE MATCH(column1, column2) AGAINST('value1 -value2' IN BOOLEAN MODE); -- search for value1, not value2
+    
+SELECT * FROM table1
+	WHERE MATCH(column1, column2) AGAINST('value1' WITH QUERY EXPANSION); -- searches for matches with 2 letters or less
+
+What is boolean mode in full text searching? options?
++ include, must be present
+- exclude, must NOT be present
+> include increase ranking value
+< include decrease ranking value
+() group words into subexpressions
+~ negate word's ranking value
+* wildcard at end of word
+''' specific phrase
+rank = order in which results are shown
+
+What is ngram mode in full text searching?
+Used for languages such as chinese that don't use spaces to delimit words.
+FULLTEXT (column1, column2) WITH PARSER NGRAM
+
+What are the aggregate functions in SQL?
+AVG
+COUNT
+SUM
+MIN
+MAX
+GROUP_CONCAT
+
+What are some string manipulation functions in SQL?
+LENGTH(str), CHAR_LENGTH(str)
+REPLACE(str, oldStr, newStr)
+SUBSTRING(str, pos, len)
+TRIM(str)
+FIND_IN_SET(str, commaListStr)
+FORMAT(number, decimals, locale)
+
+How do you check for Null?
+IFNULL(expr1, expr2) - returns expr1 if not null, otherwise expr2
+NULLIF(expr1, expr2) - returns null if expr1 = expr2, otherwise expr1
+
+What are some date and time functions in SQL?
+NOW, CURDATE, SYSDATE()
+DATEDIFF, TIMEDIFF(date1, date2)
+DAY, DAYNAME, DAYOFWEEK, WEEK, WEEKDAY, MONTH, YEAR(date)
+DATE_FORMAT(date, format)
+DATE_ADD, DATE_SUB(date, INTERVAL value unit)
+
+What are the comparison functions in SQL?
+COALESCE(1,2,3,4,5,6...) - returns the first non-NULL value
+GREATEST, LEAST(1,2,3,4,5,...) - returns NULL if exists
+ISNULL(value)
+
+How do you case variables in SQL?
+CAST(value AS type)
+where type is the type to cast
+
+What is SELECT .. INTO?
+allows you to query and store it into a variable or file.
+SELECT id, data INTO @x, @y FROM test.t1;

@@ -1,0 +1,360 @@
+
+What is Java?
+A programming language built on top of the JVM (Java Virtual Machine)
+
+What is the JVM?
+Java Virtual Machine - a program that takes java code, 
+turns it into special machine code and runs it on your computer.
+
+What are the primitives in Java?
+int, long, float, double, boolean, char, String
+
+What are the primitive functions for String?
+str.indexOf(s)
+str.lastIndexOf(s)
+str.substring(s, start)
+str.matches(s)
+str.split(s)
+str.charAt(index)
+str.toCharArray()
+str.concat(str)
+
+What are the common collections data structures in java?
+Object, Set, Map, List, Collections
+HashSet, TreeSet, HashMap, TreeMap, LinkedList, ArrayList
+ArrayDeque, LinkedHashSet, LinkedHashMap
+
+What is the Object class? What can it do?
+Object is the fundamental base class every other class inherits from.
+Object.getClass()
+Object.hashCode()
+Object.toString()
+Object.equals(obj)
+Object.clone()
+
+What is the Collections class? what can it do?
+a static set of functions that can be applied to data structure classes storing elements.
+Collections.binarySearch(list, key)
+Collections.shuffle(list)
+Collections.max(coll)
+Collections.min(coll)
+Collections.sort(list)
+
+What is the List class? What can it do?
+Store elements in a ordered structure.
+list.add(e)
+list.clear()
+list.get(i)
+list.isEmpty()
+list.remove(i)
+list.size()
+
+How do you use the List class as a stack?
+insert/remove at end
+list.add(e)
+list.remove(list.size())
+
+How do you use the List class as a queue?
+insert at end, remove at front
+list.add(e)
+list.remove(0)
+
+How do you use the list as an array?
+list.add(e)
+list.get(i)
+list.remove(i)
+
+What is the Map class? What can it do?
+stores key & value elements. Look up values using keys.
+uses a comparator for 
+map.get(key)
+map.put(key, value)
+map.remove(key)
+map.containsKey()
+map.containsValue()
+map.keySet()
+map.values()
+map.size()
+
+What is the Set class? What can it do?
+Stores unique elements in a random order.
+set.add(e)
+set.contains(o)
+set.remove(o)
+set.isEmpty()
+set.size()
+
+What is the Comparable class?
+A compare function that is used to sort arrays and maps.
+public int compareTo(T o) {
+	if(this.value < o.value) return -1;
+	else if(this.value > o.value) return 1;
+	else if(this.value == o.value) return 0;
+}
+
+What is the if else-if else operator?
+if(cond) { }
+else if(cond) { }
+else {}
+(cond) ? return_if_true : return_if_false
+
+What is the for loop operator?
+for(int i = 0; i < length; i++) {}
+for(String s : stringList) {}
+
+What is the while loop & do while loop operators?
+while(cond) {}
+do {} while(cond)
+
+What is the case, switch operator?
+conditional based on variable == #
+case conditions flow downward, only escapes with break.
+
+switch(variable) {
+	case 1: 
+		{}
+		break;
+	default:
+		{}
+		break;
+}
+
+What is the try, catch, finally, exceptions?
+try {}
+catch(IOException e) {}
+catch(Exception e) {}
+finally {}
+class className() throws Exception
+
+What is break, continue?
+Break = Keyword for breaking out of loops and conditions.
+Continue = Keyword for skipping the current loop and goto next iteration.
+
+What are functions in java and where can they be written?
+Functions are methods in Java, they must be inside a class.
+[public|private|protected] [static] return_type function_name(argument1, argument2, ...) {
+	return;
+	return 1;
+}
+
+how many return values can be returned from a function?
+only one value. Use a collection to return multiple values.
+
+How are arguments passed into a function?
+Primitves get passed by value, and Objects get passed by reference.
+
+What are the access modifiers in Java?
+public = anyone can access the class.
+private = no one outside class can access.
+protected = only the parent classes or within the package.
+default = not public,private,protected, so no keyword. Available for all in package.
+
+What are the non-access modifiers in Java?
+static, final, abstract, synchronized, volatile.
+
+What is the static modifier?
+static variable = class variable.
+static method = class method.
+static class = global class, used for libraries.
+
+What is the final modifier?
+final variable = cannot change variable.
+final method   = cannot be overridden.
+final class    = cannot be inherited, or used for immutable classes
+
+What is the abstract modifier?
+abstract method = undefined method, only has header definition.
+abstract class  = incomplete class, must be inherited for instantiation.
+
+What is the synchronized modifier?
+synchronized method = enforces mutual exclusion on the method, so it is thread-safe.
+
+What is the volatile modifier?
+variable is stored in main memory instead of cache, so multiple threads touching the variable
+will ensure changes are seem by all threads.
+Still doesn't stop race conditions though.
+
+What is a class?
+A blue print defining an individual container of methods and attributes.
+class className {}
+className obj = new className();
+
+What is a constructor?
+A method in the class that is called after instantiation, initializing the object.
+class className{
+	className() {}
+}
+
+What is the this keyword?
+this is used inside the class to refer to the current object. It's a self reference.
+
+What is the super keyword?
+this is used inside the class to refer to the parent of the current object.
+
+What is inheritance and how does it work in Java?
+inheritance lets classes get a copy of another class' properties.
+can only inherit one class.
+class className extends parentName {}
+
+What is an interface?
+a class with only method header definitions.
+cannot be created on its own, must be implemented by a class.
+classes can implement as many interfaces as they want.
+interface interfaceName {}
+class className implements interfaceName1, interfaceName2 {}
+
+What is an abstract class?
+an incomplete class. The class has some methods with no definitions.
+Must be inherited before it can be created.
+abstract class className { }
+
+How does nesting classes work?
+Classes can be declared inside of another class, called a nested class or subclass.
+The access modifiers can restrict who can access this class.
+
+How does anonymous classes work?
+declare the class definition in the middle of a statement.
+AnonClass anon = new AnonClass() {
+	...
+}
+
+What is an immutable class?
+set class as final
+set variables as final
+only arguments as parameters
+only getter methods, no setter methods
+
+What is overriding and how is that done in Java?
+Overriding can be done when a class inherits another class.
+The child class can overwrite the definition of a method from the parent class.
+Only catch is the method cannot have a wider access modifier than its parent.
+So if the parent has a protected method, the child cannot set it to public.
+
+What is overloading and how is that done in Java?
+Overloading is when a class has multiple methods with the same name, 
+but with different arguments in the header.
+
+
+How is threading done in Java?
+1. create a thread by implementing the runnable interface
+2. create a thread by extending the Thread class
+
+What is the life cycle of a thread?
+New - born thread, just created
+Runnable - thread is started, executing its task.
+Waiting - thread not running, put on hold with a condition.
+Timed Waiting - thread not running, put on hold until timer runs out.
+Terminated (dead) - thread is done.
+
+What are thread priorities?
+MIN_PRIORITY = 1
+MAX_PRIORITY = 10
+used to determine the threads are scheduled to run.
+
+How do you create a thread by implementing runnable interface?
+class className implements runnable {
+	className(Runnable threadObj, String threadName) {} // optional
+	public void start() {}
+	public void run( ) {} // required
+}
+You need to instantiate a thread inside these methods.
+
+How do you create a thread by extending Thread?
+class className extends Thread {
+	public void start() {super.start();}
+	public void run() {}
+}
+
+When would you use the runnable interface or thread class threading technique?
+Runnable Interface is if you are using a thread, not creating a thread.
+And if you are inheriting from something else.
+
+Thread class is for creating a thread.
+
+What are the Thread instance Methods?
+start()
+run()
+setName(name)
+setPriority(priority)
+setDaemon(isDaemon)
+join(millisec) - used to block current thread by waiting on another thread to terminate.
+interrupt() - unblock the thread
+isAlive() - returns true if thread is alive.
+
+What are the Thread class methods?
+yield() - reschedule currently running thread
+sleep(millisec) - block currently running thread
+holdsLock(obj) - check if current thread is holding obj Lock
+currentThread() - returns currently running thread
+dumpStack() - prints stacktrace of currently running thread
+
+What is a Lock in java?
+ReentrantLock
+lock.lock()
+lock.lockInteerruptibly() - get lock unless current thread is interrupted
+lock.tryLock()
+lock.tryLock(time, TimeUnit unit)
+lock.unlock()
+
+What is a semaphore in java?
+semaphore
+semp = new Semaphore(#permits)
+semp.acquire(permits)
+semp.acquireInterruptibly(#permits)
+semp.availablePermits()
+semp.drainPermits() - acquire, then return all permits if possible
+semp.getQueuedThreads()
+semp.getQueueLength()
+semp.hasQueuedThreads()
+semp.isFair()
+semp.reducePermits(#reduction) - #permits -= #reduction
+semp.release(#permits) - release these permits
+semp.tryAcquire(permits, timeout, TimeUnit unit)
+
+What are atomic variables in java?
+Primitive variables and collections used for multi threading.
+get()
+set()
+
+How is regex done in Java?
+regex are stored as strings.
+string.matches(regex)
+string.split(regex)
+string.replaceFirst(regex, replacement)
+string.replaceAll(regex, replacement)
+
+pattern = Pattern.compile(regex)
+matcher = pattern.matcher(string)
+matcher is the result object when testing a string with a regex using Pattern.
+matcher.start()
+matcher.end()
+matcher.group()
+...
+
+What are some basic math functions in java?
+abs()
+ceil()
+floor()
+pow()
+log()
+max()
+min()
+toDegrees()
+toRadians()
+
+How do you get random numbers in Java?
+Random rand = new Random(seed);
+rand.next();
+rand.nextBoolean();
+rand.nextInt();
+
+What kinds of scopes are there in Java?
+Class scope: class className {}
+Method scope: void functionName() {}
+Block scope: {}
+
+Comments in java?
+// line comment
+/* 
+block comment
+*/

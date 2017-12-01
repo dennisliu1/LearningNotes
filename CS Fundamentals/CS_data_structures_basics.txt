@@ -1,0 +1,445 @@
+
+What is a linked list?
+A data structure storing elements in a series of nodes connected in a chain.
+Node:
+- value
+- next Node
+
+What is a singly vs doubly linked list?
+Singly linked list = only next Node pointer
+Doubly linked list = next Node pointer & prev Node pointer
+
+What is the end of the linked list?
+when next or prev Node pointer pointing to null.
+
+What is a circular linked list?
+if the end of the list's next Node points to the head instead of null
+
+How do you insert into a linked list?
+either insert only at the head, or iterate through to the correct spot and insert there.
+Insert operation needs to keep the prev and next, so the pointers get assigned correctly.
+Depending on the loop, can insert at the end or the front using a pointer.
+
+How do you delete from a linked list?
+search for the item linearly from head, then prev node's pointer points to next, skipping the deleted node.
+Then drop the deleted node's pointer to next, and return it.
+
+How do you search in a linked list?
+iterate from start to end.
+
+What is the strengths and weaknesses of a singly linked list?
++ simple and easy to use
++ great if elements are read only from start of list
+- terrible for searching inside the list
+- cost of search, update and delete any element besides the first sucks
+- sorting via insertion sort is best
+
+What is the strengths and weaknesses of a doubly linked list?
++ simple and easy to use
++ can insert from start or end
+- still bad for searching inside the list
+- still expensive to do any operations in the middle of list?
+- sorting via insertion sort is best
+
+What is the strengths and weaknesses of a circular linked list?
++ simple and easy to use
++ circular design allows list to never end
++ algorithms can take advantage of circular loop to insert easier
+- need to worry about looping back
+- still expensive operations for searching
+- sorting would still be expensive
+
+What are the operations for a linked list?
+- insert(e), generally at the end of list
+- remove(), generally from front of list
+
+What is a stack?
+First in, last out
+
+What are the operations for stack?
+push(), insert into stack
+pop(), remove from top
+
+What is a queue?
+First in, first out
+
+What are the operations for queue?
+insert(), insert at end of queue
+remove(), remove from front of queue
+
+What is a vector?
+a dynamically sized array that grows and shrinks based on the number elements inserted.
+
+What are the operations for a vector?
+add(e, i) - insert element e at index i
+get(i) - get element at index i
+remove(i) - remove element at index i
+
+how is the vector implemented?
+the vector has an array with size N.
+When the array grows beyond a certain size m, a new array with size 2*N is created and the values are copied over to the new array.
+When the array shrinks from removing items past a certain threshold, a new array of size N/2 is created and values are copied over. 
+There is generally a minimum size that the array cannot be any smaller than.
+
+What is a good threshold for growing and shrinking a vector of size N?
+generally:
+when vector is full, double it's size.
+when vector is < 1/m, where m is > 2, shrink it's size.
+
+There are some optimizations with the copying so that when the vector is 3/4 full, create a new array and copy new values over to it, so there's less waiting for the transfer over.
+No optimizations for shrinking though, though it could just copy values over in the delete operation.
+
+What is a heap?
+an array with certain properties:
+- the array treats its elements as a binary tree
+- first element is biggest, and head of tree
+- each row is stored together, one after each other
+so 0, 1,2, 3,4,5,6 ...
+so parent = element/2;
+left child = element*2 + 1
+right child = element*2 + 2
+
+What is the heap's properties?
+1. all element's children must be smaller than it.
+2. the largest element must be the root then
+
+What are the operations for a heap?
+- add(e) add to end of array, need to reheapify up
+- remove() remove an element from the array, need to heapify down
+
+How does the add method in a heap work?
+adds elements to the end of list, and then bubble those elements up to the right position so it satisfies the heap property.
+Known as heapify-up.
+
+How does deleting an element 
+swap the last element with the element to delete, D.
+remove D from the array, and bubble down the swapped element so it's at the right position.
+Known as heapify-down.
+
+How do you sort with a heap?
+1. put items into heap
+2. remove the top of the heap
+3. reheapify
+4. repeat
+
+What is a hash table? What are the good and bad of it?
+an array with key, value pairs. 
+the keys are generated via a hashing function.
++ instant lookup, if used as an array where the index = key
++ handles a variety of sizes of elements
++ instant insertion and delete too
++ no need to sort
+- resizing needs to rehash elements and create a new array to store elements in
+- collisions can cause issues
+- picking the right hashing agorithm is tricky
+- the lookups can be slower than instant depending on hashing algorithm
+- heavy reliance of math optimizations, as hashing functions generally rely on primes
+
+What are the ways of implementing a hash table?
+1. chaining - array of list of nodes, so conflicts stored in linked list
+2. open addressing - just array, nothing else
+
+How does the chaining hash table work? good and bad?
+array of linked lists so each key matches to a single index, but then stores the collisions in a single linked list bin.
++ only need one hash function
++ as long as there aren't too many collisions, lookup is easy and good to do
++ easy logic compared to open addressing
+- linked lists can make lookup very bad if it has lots of collisions
+- more overhead than just a raw array, because linked lists objects can be expensive
+
+How does the open addressing hash table work? Good and bad?
+array of elements only.
+Every time there is a collision, use a different hash function so the index is also different, until you hit a spot that's empty.
++ only need an array
+- need a changing hash function that accounts for collisions
+- more complicated logic
+- collisions can make lookup slower, though not as slow as chaining
+
+What are some good hashing functions?
+division method h(k) = k mod m
+multiplication h(k) = [(a*k) mod 2^w] >> (w-r)
+universal hashing: g(x)=(kx mod p) mod n
+Rolling Hashing
+Sum Components
+
+What are some good open addressing hashing functions?
+Linear Probing: h(k, i)= (h'(k) +i) mod m
+Double Hashing: h(k, i) = (h1(k) + i*h2(k)) mod m
+
+What are some concepts for hash tables?
+Clustering
+Uniformity
+Rehashing
+
+What are the operations for a hash table?
+add(k, v) - add element.
+get(k) - get element.
+remove(k) - remove element.
+
+
+
+
+
+
+What is a node?
+A basic unit in computer science. Generally has value(s) and has edges that connect one node to another.
+
+What is a Root?
+Top node in a tree.
+
+What is a parent?
+A node directly connected another node, moving towards the root.
+
+What is a child?
+A node directly connected to another node, moving away from the root.
+
+What is a sibling?
+A group of nodes with the same parent.
+
+What is a descendant?
+a node reachable by repeatedly proceeding from parent to child.
+
+What is an ancestor?
+a node reachable by repeatedly proceeding from child to parent.
+
+What is a leaf?
+a node with no children
+
+What is a degree?
+number of subtrees of a node
+
+What is an edge?
+connection between one node and another
+
+What is a path?
+a sequence of nodes and edges connecting one node with a descendant
+
+What is a level?
+level of a node = 1+ (# of connections between node & root)
+
+What is the height of a node?
+height of a node = # of edges on longest path between that node and a leaf.
+
+What is the height of the tree?
+height of tree = height of root
+
+What is the depth?
+depth of node = # edges from root node to this node.
+
+What is a tree?
+A data structure that has nodes with child nodes at lead downwards, starting from a source. It's shaped like a tree.
+
+What is a binary tree?
+A tree where the nodes have only two child nodes: left and right.
+
+What is a binary search tree?
+A binary tree where left < current < right, for all nodes.
+
+What is a self balancing binary search tree?
+A binary search tree where the tree's left and right subtree heights are within 1 node off.
+Done recursively, the tree is at least a full tree -1 height.
+
+What is a full binary tree?
+a tree with all nodes filled given a height h.
+which would be (2^h)-1 nodes.
+
+What are the operations for a tree?
+Insert, remove, get
+
+How does the insert operation work for binary tree?
+
+How would the AVL Tree work?
+There are 3 rotations to do per side, given their order:
+Root-L-R -> Root-L-L -> L-Root-R
+Root-R-L -> Root-R-R -> L-Root-R
+For inserts, bubble up from new node to the root to check for this rotation
+For removal, do a removal and bubble up.
+
+What is a full binary tree?
+binary tree where every node has 0 or 2 children
+
+What is a complete binary tree?
+A binary tree where every level but the last is completely filled, and all nodes on last level are as far left as possible.
+
+what is a perfect binary tree?
+given a depth d, the tree has all nodes with 2 children and maximum number of leaves at depth d.
+
+What is a balanced binary tree?
+A binary tree that has the minimum possible max height (depth) for the leaf nodes
+
+Given n nodes in a full binary tree, what is the min and max heights it can have?
+given h = height, n = # nodes
+min = 2h + 1
+max = 2^(h+1) -1
+
+Given l leaf nodes in a perfect binary tree, what is l?
+l = (n+1)/2
+so in reverse, given l leaves in a perfect binary tree, n = 2l -1 nodes
+
+given a balanced full binary tree, what would be the height?
+h = ceiling(log2(l)) + 1 = ceiling(log2(n+1))
+
+how do you delete from a binary search tree?
+0 or 1 children = delete the node or replace node with child node
+2 children = rearrange nodes to replace:
+	if left child: get the left subtree, find the rightmost child, replace with that child in deleted node's position.
+		if that rightmost child has left subtree, just move it up.
+	if right child: same as left child but reverse: find leftmost child, replace deleted node with it.
+		move leftmost child's right subtree up
+
+how do you insert into a binary tree?
+traverse by rules: 
+	if key < node, go left
+	if key > node, go right
+	if key < node & no left, insert left
+	if key > node & no right, insert right
+
+What are the types of traversals for a binary tree?
+preorder = node, left recursive, right recursive
+inorder = left recursive, node, right recursive
+postorder = left recursive, right recursive, node
+
+What is a trie?
+a type of search k-degree tree, where each node stores a path from root to the node a prefix of a string.
+
+What does the nodes of a trie store?
+Generally the prefix of a string , where that prefix is a string of letters. 
+The order of the letters is from the root to the node, where each edge is the next letter.
+
+How would a Trie be used to replace a hash table?
+Use the Trie as a replacement for hash function.
+Pros:
+	lookup is faster for worst case, using O(m) time (m = length of search string)
+	no collisions
+	buckets = prefix of string
+	no need to hash key
+	automatic alphabetical ordering
+Cons:
+	slower than hash tables in general case
+	using long alphabet keys, such as floating numbers or just long strings, lead to unmeaningful long chains.
+	take up more space than a hash table
+
+How would a Trie be used to replace a dictionary?
+Use the Trie for storing predictive text or autocomplete
+Usefule for quickly searching, but storing this takes more memory than just an array.
+
+How to implement a Trie basic kind?
+Node.edges = char[26]
+Node.prefix = "<chain of edges so far from root>"
+Node.value = <some data here>
+
+Trie.addPath()
+Trie.deletePath()
+Trie.getNode()
+Trie.getPath()
+
+How to implement a Trie to save memory?
+use alphabet reduction.
+1. given n bytes for string, reduce character representation to 2n four-bit units (so 1/2 byte). Reduces memory by 8x.
+2. can represent node with triple (symbol, child, next) and link them as singly linked list.
+	child = first child, next = next child
+
+How to sort a Trie?
+Use an inorder traversal over trie, much like radix sort.
+
+When and How to compress a Trie?
+When:
+1. trie is mostly static, no additions or deletions
+2. only lookup needed
+3. trie nodes not have special data, just lookup path.
+4. total set of stored keys is sparse, so compression would actually help.
+How:
+1. compress representation of each node by making edges be more than 1 char.
+2. case specific compression, so some nodes which have very specific edges can use linked lists or something.
+
+
+
+
+
+
+
+
+
+
+
+What is a graph?
+A mathematical structure used to model pairwise relations between nodes and/or objects.
+
+What is a Vertex, node, point, edge?
+vertex = node = point = a unit of storage of data
+edge = a connection between two vertex.
+
+What is a directed graph?
+A graph which edges have a direction to them.
+
+What is an undirected graph?
+A graph where edges have no direction to them.
+
+What is a cycle? acyclic?
+A cycle in a graph means there exists a series of edges that allows the current node to reach itself.
+Acyclic means there is no cycle in the graph.
+usually used for directed graphs, as undirected can always move backwards. But there are special cases.
+
+What are weighted edges?
+Edges can have a weight, so there is a cost with using that path. Use case depends on what the graph is modeling.
+
+What are the ways to represent a graph as a data structure?
+1. adjacency list = node objects with edge pointers
+2. adjacency matrix = NxN matrix containing the edges of the row -> column.
+3. incidence matrix = MxN matrix which stores a list of edges between nodes.
+
+What are the basic operations in a graph?
+addNode()
+removeNode()
+addEdge()
+removeEdge()
+traverse(node, target)
+
+How would an adjacency list graph be implemented? Tradeoffs?
+Object node
+node.edge["key"] = targetNode
+node.weight["key"] = weight of edge
+
++ very easy to add and remove the nodes and edges.
++ very easy to traverse
++ great for sparse graphs
+- expensive memory use
+- slower lookup than in a matrix
+
+How would an adjacency matrix graph be implemented? Tradeoffs?
+(Node a, Node b) edge, NxN matrix.
+
+matrix[a][b] = edge weight; 0 = no edge, 1+ = edge weight
+
++ instant lookup
++ great for dense graphs
++ handles directed graphs natively
++ treat as mathematical model, so matrix operations and properties can be used on it
++ excellent compression if not using weighted edges via bitmaps
++ great for adding edges
+- sucks for sparse graphs
+- very expensive for add and delete nodes
+- wasted half the graph with undirected graphs
+- expensive memory use for sparse graph
+
+How would an incidence matrix graph be implemented? tradeoffs?
+row = # edges <ith row node> has
+column = which two nodes <jth column edge> represents. Always has 2 values filled in only, rest should be 0.
+
++ great for lookup of nodes and edges as separate objects
++ instant lookup
++ better insert and deletes than an adjacency matrix
++ works well for sparse graphs and dense graphs
++ great for certain problems
+- expensive to add or delete nodes and edges
+- a lot of wasted space
+
+
+
+
+
+
+
+
+
+

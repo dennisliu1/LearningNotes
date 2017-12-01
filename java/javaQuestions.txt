@@ -1,0 +1,38 @@
+
+What is the Java JVM?
+Java Virtual Machine
+Compiles java code into independent byte code.
+
+What is an object?
+a runtime entity, state stored in fields and behavior stored in methods
+
+What is a class?
+The blueprint which individual objects are created.
+
+What kinds of variables are there?
+default, public, protected, private
+
+What types of scope variables are there?
+local, instance, class
+
+What is a local variable?
+Variables inside functions or blocks.
+
+What is a instance variable?
+Variable inside an object but outside a method.
+
+What is a class variable?
+Variable that is within the class - static.
+
+What is a constructor?
+A class that creates a new object from a class.
+
+What are the 3 steps to creating an object for a class?
+1. declaration
+2. instantiation
+3. initialization
+
+Why is String considered immutable?
+String created cannot be changed, and this is so it can be passed between threads.
+
+
