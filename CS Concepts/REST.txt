@@ -1,0 +1,51 @@
+What is REST?
+REST stands for REpresentational State Transfer.
+It is a protocol used on the internet for querying, updating and transfer data through a common interface.
+
+What is good and bad about REST?
+- Uniform interface = interface requests all follow the same style
+- stateless = no need to worry about setting or changing states to get what you want
+- cacheable = results are atomic and like queries, can be stored as a whole unit.
+- client-server = works well with the internet
+- layered system = can query for more complex data with more layers of data
+- code on demand = can add optional client side code to run on their end
+
+Performance = fast and reliable
+scalability = flexible standard that works for large numbers of components.
+Simplicity = uniform interface
+Modifiability = can change components to handle different needs, even in runtime
+Visibility = visible communications between components
+Portability = just an API
+
+designed for web resources in mind
+
+What parts are there to a REST API?
+Collection = groups of resources
+Resource = endpoint data objects
+
+Given a Request:
+URL = collection  or resource path
+
+HTTP Methods:
+GET = get collection of URLs to resources, or a resource
+PUT = update or replace collection or resource
+PATCH = used to update elements
+POST = create a new resource child
+DELETE = delete the entire collection or resource
+
+What are some good best practices for REST APIs?
+- use sensible resource names:
+- the collection hierarchy should be intuitive and consistent
+- URLs should have proper identifiers and resources names
+- Sensible HTTP response codes for status
+- Support for JSON and XML
+- be truly stateless and requests should always return the same thing each time (internal data might change, but how they get the data should be the same)
+
+What goes into a REST API request?
+- Request Header (HTTP Method)
+- URL
+- Payload = JSON or XML
+
+What goes into a REST API response?
+- status code
+- payload = JSON or XML

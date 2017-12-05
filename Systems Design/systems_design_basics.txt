@@ -1,0 +1,112 @@
+What is systems design?
+the process of defining architecture, modules, interfaces & data for a system to satisfy specified requirements.
+
+What are the principles in systems design?
+availability = uptime
+performance = # of requests or traffic can handle
+reliability = how consistently deliver correct results
+scalability = how easy is it to handle more requests or traffic?
+managability = how easy is it to maintain, deploy, update?
+cost = how much would it cost?
+
+What are some topics in Systems design?
+concurrency
+networking
+abstraction
+real-world performance
+estimation
+availability and reliability
+
+What is the System Design Process?
+constraints and use cases
+abstract high level design
+understanding the bottlenecks
+scaling the abstract design
+filling in the details
+Keep in mind
+    services - individual subsystems doing a specific task
+    redundancy - handle error with grace
+    partitions - data too big to fit on a single server
+    consider bottlenecks
+
+What are some Scalable Systems Design Patterns?
+Load balancer
+    dispatcher determines which worker will handle request
+scatter and gather
+    dispatcher multicasts request to all workers in pool
+    each worker computes local result, dispatcher aggregates it and responds
+result cache
+    look up cached result from a previous request
+shared space
+    client puts problem into shared space
+    workers solve partial problems of the actual problem
+    once done client retrieves result
+pipe and filter
+    data flow programming
+    all workers connected by pipes where data flows in one way
+map reduce
+    solves disk I/O bottleneck
+    uses distributed file system
+    map: every system computes and readies subset of data for processing
+    reduce: go through all data and produce single result
+bulk synchronous parellel
+    basically a thread pool
+    input comes in via input queue
+    workers pick up work
+    done work gets pulled by client from workers
+execution orchestrator
+    intelligent scheduler
+    schedule ready-to-run tasks via a dependency graph
+    use cluster of dumb workers
+
+What are some systems design components?
+server farm
+data partitioning
+mapreduce
+content delivery network
+cache engine
+resource pool
+calculate an approximate result
+filtering at the source
+async processing
+implementation design considerations
+schedule periodic tasks
+platform layer abstraction
+caches
+global cache
+distributed cache
+consistent hashing
+proxies
+indexes
+queues
+sharding
+
+What is the CAP Theorem?
+consistency = updated info will always return updated info; no old data
+availability = always available for requests, until one of your data stores go down (they get a queue of messages missed)
+partition tolerance = requests will work even if one data store goes down
+you can only pick 2 of 3:
+    available, tolerant = not consistent (data stores could be out of sync)
+    consistent, tolerant = not available (if data store is down, it can't be updated with new info)
+        could use a queue?
+    consistent, available = not tolerant (if data store does not update another data store, then you need to take service down for maintenance to sync them up)
+a data store always need to check if there is updates on other data stores
+    if you're outdated, do you respond to reads with potentially old data, or wait to hear an update from another partition?
+
+What is consistent hashing?
+http://www.tom-e-white.com/2007/11/consistent-hashing.html
+problem: a linear hash to choose which cache to store data in has issues
+solution: consistent hash
+    hash the items
+    hash the cache index
+    for each item hash, check for next largest hash (prevCacheHash < itemHash < cacheHash)
+    so items will always find the next cache to use
+    but since cache hashes are random, we need something more consistent for them
+        use virtual nodes (basically multiple hashes) so there are several entrances into a cache
+
+What is sharding?
+Partition your database's data by row.
+So each "shard" is a range of data of a table, and the shards combined form a whole table.
+Each "shard" can be broken up into pages, which contain a small subset of data forming the "shard" range.
+Sharding the data allows multiple computers and databases to be used, distributing the load.
+

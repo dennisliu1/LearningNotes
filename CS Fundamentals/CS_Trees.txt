@@ -1,0 +1,167 @@
+What is a node?
+A basic unit in computer science. Generally has value(s) and has edges that connect one node to another.
+
+What is a Root?
+Top node in a tree.
+
+What is a parent?
+A node directly connected another node, moving towards the root.
+
+What is a child?
+A node directly connected to another node, moving away from the root.
+
+What is a sibling?
+A group of nodes with the same parent.
+
+What is a descendant?
+a node reachable by repeatedly proceeding from parent to child.
+
+What is an ancestor?
+a node reachable by repeatedly proceeding from child to parent.
+
+What is a leaf?
+a node with no children
+
+What is a degree?
+number of subtrees of a node
+
+What is an edge?
+connection between one node and another
+
+What is a path?
+a sequence of nodes and edges connecting one node with a descendant
+
+What is a level?
+level of a node = 1+ (# of connections between node & root)
+
+What is the height of a node?
+height of a node = # of edges on longest path between that node and a leaf.
+
+What is the height of the tree?
+height of tree = height of root
+
+What is the depth?
+depth of node = # edges from root node to this node.
+
+What is a tree?
+A data structure that has nodes with child nodes at lead downwards, starting from a source. It's shaped like a tree.
+
+What is a binary tree?
+A tree where the nodes have only two child nodes: left and right.
+
+What is a binary search tree?
+A binary tree where left < current < right, for all nodes.
+
+What is a self balancing binary search tree?
+A binary search tree where the tree's left and right subtree heights are within 1 node off.
+Done recursively, the tree is at least a full tree -1 height.
+
+What is a full binary tree?
+a tree with all nodes filled given a height h.
+which would be (2^h)-1 nodes.
+binary tree where every node has 0 or 2 children
+
+What are the operations for a tree?
+Insert, remove, get
+
+How would the AVL Tree work?
+There are 3 rotations to do per side, given their order:
+Root-L-R -> Root-L-L -> L-Root-R
+Root-R-L -> Root-R-R -> L-Root-R
+For inserts, bubble up from new node to the root to check for this rotation
+For removal, do a removal and bubble up.
+
+
+What is a complete binary tree?
+A binary tree where every level but the last is completely filled, and all nodes on last level are as far left as possible.
+
+what is a perfect binary tree?
+given a depth d, the tree has all nodes with 2 children and maximum number of leaves at depth d.
+
+What is a balanced binary tree?
+A binary tree that has the minimum possible max height (depth) for the leaf nodes
+
+Given n nodes in a full binary tree, what is the min and max heights it can have?
+given h = height, n = # nodes
+min = 2h + 1
+max = 2^(h+1) -1
+
+Given L leaf nodes in a perfect binary tree, what is L?
+l = (n+1)/2
+so in reverse, given l leaves in a perfect binary tree, n = 2l -1 nodes
+
+given a balanced full binary tree, what would be the height?
+h = ceiling(log2(l)) + 1 = ceiling(log2(n+1))
+
+how do you delete from a binary search tree?
+0 or 1 children = delete the node or replace node with child node
+2 children = rearrange nodes to replace:
+	if left child: get the left subtree, find the rightmost child, replace with that child in deleted node's position.
+		if that rightmost child has left subtree, just move it up.
+	if right child: same as left child but reverse: find leftmost child, replace deleted node with it.
+		move leftmost child's right subtree up
+
+how do you insert into a binary tree?
+traverse by rules: 
+	if key < node, go left
+	if key > node, go right
+	if key < node & no left, insert left
+	if key > node & no right, insert right
+
+What are the types of traversals for a binary tree?
+preorder = node, left recursive, right recursive
+inorder = left recursive, node, right recursive
+postorder = left recursive, right recursive, node
+
+What is a trie?
+a type of search k-degree tree, where each node stores a path from root to the node a prefix of a string.
+
+What does the nodes of a trie store?
+Generally the prefix of a string , where that prefix is a string of letters. 
+The order of the letters is from the root to the node, where each edge is the next letter.
+
+How would a Trie be used to replace a hash table?
+Use the Trie as a replacement for hash function.
+Pros:
+	lookup is faster for worst case, using O(m) time (m = length of search string)
+	no collisions
+	buckets = prefix of string
+	no need to hash key
+	automatic alphabetical ordering
+Cons:
+	slower than hash tables in general case
+	using long alphabet keys, such as floating numbers or just long strings, lead to unmeaningful long chains.
+	take up more space than a hash table
+
+How would a Trie be used to replace a dictionary?
+Use the Trie for storing predictive text or autocomplete
+Usefule for quickly searching, but storing this takes more memory than just an array.
+
+How to implement a Trie basic kind?
+Node.edges = char[26]
+Node.prefix = "<chain of edges so far from root>"
+Node.value = <some data here>
+
+Trie.addPath()
+Trie.deletePath()
+Trie.getNode()
+Trie.getPath()
+
+How to implement a Trie to save memory?
+use alphabet reduction.
+1. given n bytes for string, reduce character representation to 2n four-bit units (so 1/2 byte). Reduces memory by 8x.
+2. can represent node with triple (symbol, child, next) and link them as singly linked list.
+	child = first child, next = next child
+
+How to sort a Trie?
+Use an inorder traversal over trie, much like radix sort.
+
+When and How to compress a Trie?
+When:
+1. trie is mostly static, no additions or deletions
+2. only lookup needed
+3. trie nodes not have special data, just lookup path.
+4. total set of stored keys is sparse, so compression would actually help.
+How:
+1. compress representation of each node by making edges be more than 1 char.
+2. case specific compression, so some nodes which have very specific edges can use linked lists or something.

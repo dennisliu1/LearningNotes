@@ -1,0 +1,71 @@
+What is a graph?
+A mathematical structure used to model pairwise relations between nodes and/or objects.
+
+What is a Vertex, node, point, edge?
+vertex = node = point = a unit of storage of data
+edge = a connection between two vertex.
+
+What is a directed graph?
+A graph which edges have a direction to them.
+
+What is an undirected graph?
+A graph where edges have no direction to them.
+
+What is a cycle? acyclic?
+A cycle in a graph means there exists a series of edges that allows the current node to reach itself.
+Acyclic means there is no cycle in the graph.
+usually used for directed graphs, as undirected can always move backwards. But there are special cases.
+
+What are weighted edges?
+Edges can have a weight, so there is a cost with using that path. Use case depends on what the graph is modeling.
+
+What are the ways to represent a graph as a data structure?
+1. adjacency list = node objects with edge pointers
+2. adjacency matrix = NxN matrix containing the edges of the row -> column.
+3. incidence matrix = MxN matrix which stores a list of edges between nodes.
+
+What are the basic operations in a graph?
+addNode()
+removeNode()
+addEdge()
+removeEdge()
+traverse(node, target)
+
+How would an adjacency list graph be implemented? Tradeoffs?
+Object node
+node.edge["key"] = targetNode
+node.weight["key"] = weight of edge
+
++ very easy to add and remove the nodes and edges.
++ very easy to traverse
++ great for sparse graphs
+- expensive memory use
+- slower lookup than in a matrix
+
+How would an adjacency matrix graph be implemented? Tradeoffs?
+(Node a, Node b) edge, NxN matrix.
+
+matrix[a][b] = edge weight; 0 = no edge, 1+ = edge weight
+
++ instant lookup
++ great for dense graphs
++ handles directed graphs natively
++ treat as mathematical model, so matrix operations and properties can be used on it
++ excellent compression if not using weighted edges via bitmaps
++ great for adding edges
+- sucks for sparse graphs
+- very expensive for add and delete nodes
+- wasted half the graph with undirected graphs
+- expensive memory use for sparse graph
+
+How would an incidence matrix graph be implemented? tradeoffs?
+row = # edges <ith row node> has
+column = which two nodes <jth column edge> represents. Always has 2 values filled in only, rest should be 0.
+
++ great for lookup of nodes and edges as separate objects
++ instant lookup
++ better insert and deletes than an adjacency matrix
++ works well for sparse graphs and dense graphs
++ great for certain problems
+- expensive to add or delete nodes and edges
+- a lot of wasted space

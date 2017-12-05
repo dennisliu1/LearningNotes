@@ -1,0 +1,60 @@
+What is depth first search? Recurisve? Iterative?
+Traversing a tree or graph by looking at the children first, current node last.
+Recursive:
+	Given node n, recursively check children first.
+	Once all children are done by reaching the end and coming back up, do operation on node n.
+	If working on a graph, use markers to check if node is done or not.
+Iterative:
+	Using a stack, start by adding the root to the stack.
+		Pop a node from the stack, that's the current node.
+		add its children into the stack.
+		do operations on current node.
+		repeat.
+
+What is breadth first search? Recurisve? Iterative?
+Traversing a tree or graph by depth based on the root. Every "loop" of the operations is all the nodes at depth d.
+Recursive:
+	none really. Call stacks is a stack, and BFS requires a queue. It's silly.
+Iterative:
+	Given a queue, start by adding root to queue.
+		get element from queue.
+		do its operations.
+		add all its children to queue.
+		Repeat.
+
+What is dijsktra's algorithm?
+An algorithm for finding the shortest path between two nodes in a graph.
+	For each node, store its minimum distance from root. Initialize as infinity. Root gets initialized as 0.
+	Use an array for storing nodes added to search. Add root to array.
+		Given the array, find the smallest edge that would add a new node to the array.
+		Add that node, and update all nodes' minimum distances. Update = min(node m.distance + edge, n.distance)
+			so basically either use this new path by going through another node, or keep existing path.
+		Repeat until reach target node.
+Runs at O( (E+V)*logV)
+
+What is A* (A star) algorithm?
+Algorithm used for pathfinding and graph traversal. Basically a brute force algorithm on all possible paths.
+
+Store a list of done nodes.
+Store a list of possible nodes to goto next.
+Store a list of the best edge so far for each node, will be used for optimal path once done.
+Store a list of minimum distances from start to that node.
+Store a list of heuristic cost estimate to go from that node to the target node.
+While there is possible nodes:
+	current = node in possible nodes with lowest cost estimate
+	move current node from possible to done
+	for all the neighbors of current
+		if neighbor is already done, don't bother
+		if neighbor not in possible list, add to possible list
+		update distance from start to neighbor node if going through current node is lower cost
+		store best edge for neighbor node
+		update cost estimate from neighbor node to target
+To get optimal path:
+	start from target
+		go backwards from list of best edges
+Runs at O(E), E = edges
+
+What are the types of traversals for a tree?
+preorder = node, left recursive, right recursive
+inorder = left recursive, node, right recursive
+postorder = left recursive, right recursive, node

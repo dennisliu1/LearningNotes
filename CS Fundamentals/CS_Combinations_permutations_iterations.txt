@@ -1,0 +1,88 @@
+Given size N array, generate all combinations of size K in java?
+https://stackoverflow.com/questions/127704/algorithm-to-return-all-combinations-of-k-elements-from-n
+https://stackoverflow.com/questions/29910312/algorithm-to-get-all-the-combinations-of-size-n-from-an-array-java
+This is the problem of generating all k-subsets (k-combinations).
+Have an array of size K tracking indexes and generate index combinations in increasing order.
+Go from right to left.
+Rules are:
+1. find position i in the index Array where the number can still be incremented.
+1.1 if no position found, all combinations are done - end!
+2. increment indexes[i]++
+3. for j=i+1..N, indexes[j-1]+1
+	so this means do a linear progression from i to N.
+4. got subset
+5. repeat
+
+Given size N pair strings, generate all combinations of strings.
+for x=0..2^N:
+combo=""
+for i=1..N:
+	bits = x & 2^i
+	if bits > 0 then combo += pair[i-1][0]
+	else combo += pair[i-1][1]
+add combo to results
+
+How do you generate all binary string combinations of length N?
+recursive:
+- base case:
+	if n <= 0: unique permutation, do something
+- recursive:
+	set A[n-1] = 0
+	recursively call(n-1)
+	set A[n-1] = 1
+	recursively call(n-1)
+
+How do you generate all permutations of an array of length N?
+Remember, an array of size N has N! permutations (order matters).
+Use Heap's Algorithm:
+https://en.wikipedia.org/wiki/Heap%27s_algorithm
+
+Recursive Heap(n, Arr)
+if n = 1 then output(A)
+else
+for i=0..n-2 do
+Heap(n-1, A)
+if n is even then swap(A[i], A[n-1])
+else swap(A[0], A[n-1])
+end for
+Heap(n-1, A)
+end if
+
+Iterative Heap(n, Arr)
+c = int[0..N] , default = 0
+output(A)
+i = 0
+while i < n
+if c[i] < i then
+	if i is even then: swap(A[0], A[i])
+	else swap(A[c[i]], A[i])
+	output(A)
+	c[i]++
+	i = 0
+else: c[i] = 0, i++
+end while
+
+Given an alphabet that converts 0..M to unique letters, create a conversion function for a string and its number both ways.
+number bitwise conversion except instead of 0..1, its with 0..M
+toAlphabet(int num):
+result=""
+x = num
+while x > 0
+	x--
+	result += getLetter(x % M)
+	x /= M
+return result
+
+toNumber(String str):
+result = 0
+n = str.length
+for i=n-1..0
+	pow = M^(n-1 - i)
+	digit = getNumber(str[i])
+	result += digit*pow
+return result
+
+
+
+
+

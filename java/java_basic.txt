@@ -358,3 +358,6 @@ Comments in java?
 /* 
 block comment
 */
+
+What are enums in Java?
+public enum Day { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY } 

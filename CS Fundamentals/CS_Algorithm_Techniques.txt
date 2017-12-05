@@ -1,0 +1,56 @@
+
+What are the common Algorithm Design Techniques?
+Brute Force
+Divide & Conquer
+Decrease & Conquer
+Transform & Conquer
+UseSpace
+Dynamic Programming
+Greedy Algorithm
+
+What is the brute force algorithm technique?
+go through all possible iterations and combinations until you reach your result.
+Slowest technique but always solves the problem.
+
+What is the divide & conquer algorithm technique?
+Divide the problem into subproblems. Recurisvely apply this to the subproblems until you reach the base case.
+Then, using the sub-solutions, combine and generate bigger sub-solutions until you answer the original problem.
+
+What is the decrease & conquer algorithm technique?
+Reduce the problem slightly, then solve that reduced problem and apply it to get the original problem's solution.
+Do this recursively.
+
+What is the transform & conquer algorithm technique?
+Transform the problem into another problem that you know how to solve. Use the other problem to solve this problem.
+
+What is the Use Space algorithm technique?
+use an auxiliary data structure to solve the problem.
+
+What is the dynamic programming algorithm technique?
+Break down the complex original problem into collection of simpler subproblems.
+Solving each subproblem just once and storing their solutions, building up to the original complex problem.
+1. define subproblems
+2. guess part of the solution
+3. relate subproblem solutions
+4. recurse & memoize
+5. solve original problem
+
+What is the greedy algorithm technique?
+A special case of dynamic programming.
+Iterate through the problem only once.
+at each step, hold onto the best result, and decide next step based on heuristics.
+No lookahead, just hope following the heuristics and keeping best solution so far is the right answer.
+
+What is memoization?
+When doing a recursive problem, store the subproblem solutions in a lookup table.
+This way larger subproblems can reuse solution instead of recomputing it.
+For example, with fibonacci, for fib(100), fib(10) will be called recursively in the problem.
+Finding the answer once lets the recursive program finish all fib(10) calls in O(1).
+
+What is a good algorithm design checklist?
+Algorithm Design Canvas from HiredInTech
+1. Constraints
+2. Generate ideas 
+3. figure out complexity Big-O for each idea
+4. code it out
+5. Test

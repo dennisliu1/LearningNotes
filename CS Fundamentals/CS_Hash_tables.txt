@@ -1,0 +1,66 @@
+What is a hash table? What are the good and bad of it?
+an array with key, value pairs. 
+the keys are generated via a hashing function.
++ instant lookup, if used as an array where the index = key
++ handles a variety of sizes of elements
++ instant insertion and delete too
++ no need to sort
+- resizing needs to rehash elements and create a new array to store elements in
+- collisions can cause issues
+- picking the right hashing agorithm is tricky
+- the lookups can be slower than instant depending on hashing algorithm
+- heavy reliance of math optimizations, as hashing functions generally rely on primes
+
+What are the ways of implementing a hash table?
+1. chaining - array of list of nodes, so conflicts stored in linked list
+2. open addressing - just array, nothing else
+
+How does the chaining hash table work? good and bad?
+array of linked lists so each key matches to a single index, but then stores the collisions in a single linked list bin.
++ only need one hash function
++ as long as there aren't too many collisions, lookup is easy and good to do
++ easy logic compared to open addressing
+- linked lists can make lookup very bad if it has lots of collisions
+- more overhead than just a raw array, because linked lists objects can be expensive
+
+How does the open addressing hash table work? Good and bad?
+array of elements only.
+Every time there is a collision, use a different hash function so the index is also different, until you hit a spot that's empty.
++ only need an array
+- need a changing hash function that accounts for collisions
+- more complicated logic
+- collisions can make lookup slower, though not as slow as chaining
+
+What are some good hashing functions?
+division method h(k) = k mod m
+multiplication h(k) = [(a*k) mod 2^w] >> (w-r)
+universal hashing: g(x)=(kx mod p) mod n
+Rolling Hashing
+Sum Components
+
+What are some good open addressing hashing functions?
+Linear Probing: h(k, i)= (h'(k) +i) mod m
+Double Hashing: h(k, i) = (h1(k) + i*h2(k)) mod m
+
+What are some concepts for hash tables?
+Clustering =  the chance of a collision or grouping of elements around certain indexes together. Less is better.
+Uniformity = the amount of spreading of inputs across vector. more is better.
+Rehashing = every time the vector resizes, need to rehash all elements
+
+What are the operations for a hash table?
+add(k, v) - add element.
+get(k) - get element.
+remove(k) - remove element.
+
+What is the load factor of a hash table?
+n = # of slots in a vector
+m = # of slots used
+load factor = m/n
+So:
+load = 1 = full hash table
+load = 0 = empty hash table
+
+What is the load factor used for?
+determines the probability of no collison
+P = 1 - load = 1 - m/n
+Which determines lookup, insert operation times.
