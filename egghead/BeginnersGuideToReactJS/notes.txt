@@ -1,0 +1,42 @@
+https://unpkg.com/#/
+https://codesandbox.io/
+https://brew.sh
+https://processingjs.org/referene/parentheses/
+
+
+lesson 1
+	use createElement to create an element
+	exactly the same as JS but a lot cleaner
+	createElement(elementType, props, children1..	)
+	ReactDOM.render(element, rootElement)
+	React Element:
+		props
+			classname
+			children
+		type = div
+	react Element
+		msg = shortcut for a message innerText
+		children = actual children of the element
+
+lesson 2
+	using createElement is slow and tedious, use JSX instead
+	can define embedded elements directly in babel JS script blocks
+	{} = JS code context inside element block; use this to reference variables too
+	<div {...props} /> lets you define elements with props object definition
+
+lesson 3
+	components lets you create custom DOM elements
+	component must be start with Uppercase letter (required by react-dom and Babel)
+lesson 4
+	propTypes = checks if the types passed into a Prop Eleement is valid or not
+	specify as class = use static {definition...}
+	specify as object = propName.propTypes = {definition...}
+lesson 5
+	Props return a JSX object
+	you can use conditionals to decide what to return
+	Babel JSX is simply a shorthand for createElement, just think of it as a nicer syntax to do same thing
+lesson 6
+	ReactDOM re-renders what is on screen only the elements it needs to
+	it also keeps focus on selected elements correctly!
+	compare this to rewriting the entire innerHTML, which loses the focus and does not keep it correctly
+	React's shadow DOM will handle all that heavy lifting for you
