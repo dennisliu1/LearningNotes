@@ -22,44 +22,53 @@
 <body>
 <div id="root"></div>
 
+
 <script type="text/babel">
-function Box({style, className='', size='',  ...rest}) {
-	const classSizeName = (size !== '') ? `box--${size}` : ''
+const state = {eventCount: 0, username: ''}
+
+function App() {
 	return (
-		<div
-			className={`box ${className} ${classSizeName}`}
-			style={{paddingLeft: '20', ...style}}
-			{...rest}
-		/>
+		<div>
+			<p>
+				There have been {state.eventCount} events
+			</p>
+			<p>
+				<button onClick={increment} >Press me</button>
+			</p>
+			<p>
+				you typed: {state.username}
+			</p>
+			<p>
+				<input onChange={updateUserName} />
+			</p>
+		</div>
 	)
 }
-const element = (
-	<div>
-		<Box
-			className="box--small" 
-			style={{backgroundColor: 'lightblue'}}>Small Box</Box>
-		<Box
-			size="medium"
-			style={{backgroundColor: 'pink'}}>Medium Box</Box>
-	</div>
-)
+function increment() {
+	setState({
+	eventCount: state.eventCount + 1,
+	})
+}
 
+function updateUserName(event) {
+	setState({
+		username: event.target.value,
+	})
+}
 
+function setState(newState) {
+	Object.assign(state, newState)
+	renderApp()
+}
 
-const element2 = (
-	<div>
-		<div  
-			className= "box box--small"
-			style={{paddingLeft: '20'}}>
-				box
-		</div>
-	</div>
-)
+function renderApp() {
+	ReactDOM.render(
+		<App />,
+		document.getElementById('root')
+	)
+}
 
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-)
+renderApp()
 </script>
 </body>
 </html>
