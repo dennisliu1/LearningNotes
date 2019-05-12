@@ -21,6 +21,43 @@ t7.4 17.6 17.5 17.7 77.8
 20.13 20.15 20.16 20.1 20.2
 
 # 1. Introduction
+# 4. Primitive Types
+## 4.1. Computing the parity of a word
+# 5. Arrays
+# 5.1. The Dutch National Flag problem
+# 6. Strings
+# 6.1. Interconvert strings and integers
+# 7. Linked Lists
+# 7.1. Merge two sorted lists
+# 8. Stacks and Queues
+# 8.1. Implement a stack with max API
+# 9. Binary Trees
+# 9.1. Test if a binary tree is height-balanced
+# 11. Searching
+# 11.1.
+# 12. Hash Tables
+# 12.2.
+# 13. Sorting
+# 13.1.
+# 14. Binary Search Tree
+# 14.1.
+# 15. Recursion
+# 15.1.
+# 16. Dynamic Programming
+# 16.1.
+# 17. Greedy Algorithms & Invariants
+# 17.4.
+# 18. Graphs
+# 18.1.
+# 19. Parallel Computing
+# 19.3.
+# 20. Design Problems
+# 20.13.
+
+---
+
+
+# 1. Introduction
 
 # 4. Primitive Types
 - all built-in types in Python are objects
@@ -257,6 +294,52 @@ str(i)
     - O(h) complexity == O(logn) for balanced trees, O(n) for skewed trees
 - tree nodes with parent field is easier to work with
 - easy to mistake a node with a single child as a leaf
+- tree traversal
+    - inorder, preorder, postorder (recursive, so it's actually depth first search)
 
 # 9.1. Test if a binary tree is height-balanced
 - height balance == left and right subtrees have height +/- 1 of each other
+- solution: do depth first search and store whether the current node is height; bubble up!
+    - use post-order traversal
+
+# 10. Heaps
+- specialized complete binary tree
+- heap property: node.key > children[i].key (max heap)
+- can be implemented as an array:
+    - node[i].child = node[2*i + 1], node[2*i + 2]
+- O(logn) insertion, O(1) lookup for max element, O(logn) deleting max element, O(n) for arbitrary node
+- also known as priority queue
+- Heaps are great for getting the k largest or k smallest elements in a collection.
+- python
+    - heapq module == min-heap only!?
+    - heapq.heapify(L)
+    - heapq.nlargest(k, L), heapq.nsmallest(k, L)
+    - heapq.heappush(h, e)
+    - heapq.headpop(h)
+    - heapq.headpushpop(h, a)
+    - e = h[0] 
+
+# 10.1. Merge Sorted Files
+
+
+
+# 11. Searching
+# 11.1.
+# 12. Hash Tables
+# 12.2.
+# 13. Sorting
+# 13.1.
+# 14. Binary Search Tree
+# 14.1.
+# 15. Recursion
+# 15.1.
+# 16. Dynamic Programming
+# 16.1.
+# 17. Greedy Algorithms & Invariants
+# 17.4.
+# 18. Graphs
+# 18.1.
+# 19. Parallel Computing
+# 19.3.
+# 20. Design Problems
+# 20.13.
