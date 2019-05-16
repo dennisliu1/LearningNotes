@@ -320,15 +320,87 @@ str(i)
     - e = h[0] 
 
 # 10.1. Merge Sorted Files
-
-
+- use a min-heap so you always can pop the next smallest number
+- so whatever number you add, you can always get the next smallest number
+- that lets you get them in sorted order.
 
 # 11. Searching
-# 11.1.
+- this chapter is on searching static data in an array.
+- Binary Search
+    - great for sorted arrays where you compare interval of numbers
+    - consider the time/space tradeoffs, especially if have to make multiple passes
+- python
+    - bisect library
+    - bisect.bisect_left
+    - bisect.bisect
+
+# 11.1. search a sorted array for first occurrence of k
+- naive = binary search and linear search for the first occurence index
+- better = create a binary search variant: constraint the search space to find it, and take the left from [left, right] constraints.
+    That will be the first occurence.
+
 # 12. Hash Tables
-# 12.2.
+- best theoretical and real-world performance for lookup, insert & delete O(1)
+- it takes O(n) to rehash if you need to reallocate the data into a larger/smaller hash table, but amortized the hit will still get you O(1)
+- the hash code can be used as a signature to enhance performace (filter out candidates)
+- use a precomputed lookup table for doing mappings char -> value or value -> char.
+- the hash function is the hardest part to write: make sure every input ALWAYS returns the same output!
+- multimap == map that contains multiple values for a single key.
+    - open addressing
+    - separate chaining
+- library in python
+    - set, dict, collections.defaultdict, collections.Counter
+    - set stores keys, all others store key & value pairs
+    - KeyError Exception if key is not present
+        - collections.defaultdict returns a default if key is not present.
+    - collections.Counter = counting # of occurrences of keys
+    - set.add(42), set.remove(42), set.discard(42), x in set, s <= t (s is a subset of t), s - t (remove elements from s that are not in t)
+
+# 12.1. test words for palindromic permutations
+- test whether a string can be permutated to become a palindrome.
+- if you could rearrange a string to become a palindrome, technically you just need pairs of letters, with an optional single mid character if the string is odd.
+- so count the number of characters in the string with a hash table Counter.
+- Then check if each character is even.
+- If the string is odd, one character will have count = 1.
+
+# 12.2. Is an anonymous letter constructible?
+- given an anonymous letter we want to write and a magazine we would cut letters out of and paste together to make the anonymous letter, check if you can write the anonymous letter.
+- The anonymous letter is a string of characters.
+- The magazine is a string of characters.
+- Remember, the magazine can run out of characters for you to cut out and use in the letter!
+Solution
+- same as 12.1
+- store a hash table counter with counters of all the letters you need from the anonymous letter.
+- iterate through the magazine and every character you see that matches, subtract one.
+- if you successfully reduce all the counters to zero, return true. Otherwise return false.
+- you'll iterate through both the letter and magazine once, so it'll be O(n+m).
+- optimization:
+    - you could technically stop counting once you finish the hash table counters. So if you track a letter_total_letters, you can stop.
+
 # 13. Sorting
-# 13.1.
+- we want to sort elements in an array to a natural order.
+- By being sorted, you can search faster, lookup elements faster, etc.
+- efficient sorts are O(nlogn) but each with a drawback:
+    - heapsort == equal elements are not sorted in same order as they were before sorting.
+    - mergesort == uses Nx more memory.
+    - quicksort == worst case can take O(n^2) time.
+- there's also special cases:
+    - with small amounts of elements, just use insertion sort.
+    - if the elements are at most k indexes away from their final sorted position, use min-heap for O(nlogk).
+    - with lots of repeated numbers, use radix (bucket) sort.
+    - with lots of duplicates, use a BST with an inorder traversal to get the values.
+    - specialized inputs can get O(n) sorting time.
+Python
+- sort() == sort a list in-place.
+- sorted() == sort an iterable.
+
+# 13.1. Compute the intersection of two sorted arrays
+- given two sorted arrays, return the elements that are in both the arrays, without duplicates.
+Solution
+- merge sort and return matches.
+- if the value exists already, it'll be the last element in the result.
+- runtime = O(m+n)
+
 # 14. Binary Search Tree
 # 14.1.
 # 15. Recursion
