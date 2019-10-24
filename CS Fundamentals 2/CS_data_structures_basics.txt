@@ -1,0 +1,130 @@
+
+What is a linked list?
+A data structure storing elements in a series of nodes connected in a chain.
+Node:
+- value
+- next Node
+
+What is a singly vs doubly linked list?
+Singly linked list = only next Node pointer
+Doubly linked list = next Node pointer & prev Node pointer
+
+What is the end of the linked list?
+when next or prev Node pointer pointing to null.
+
+What is a circular linked list?
+if the end of the list's next Node points to the head instead of null
+
+How do you insert into a linked list?
+either insert only at the head, or iterate through to the correct spot and insert there.
+Insert operation needs to keep the prev and next, so the pointers get assigned correctly.
+Depending on the loop, can insert at the end or the front using a pointer.
+
+How do you delete from a linked list?
+search for the item linearly from head, then prev node's pointer points to next, skipping the deleted node.
+Then drop the deleted node's pointer to next, and return it.
+
+How do you search in a linked list?
+iterate from start to end.
+
+What is the strengths and weaknesses of a singly linked list?
++ simple and easy to use
++ great if elements are read only from start of list
+- terrible for searching inside the list
+- cost of search, update and delete any element besides the first sucks
+- sorting via insertion sort is best
+
+What is the strengths and weaknesses of a doubly linked list?
++ simple and easy to use
++ can insert from start or end
+- still bad for searching inside the list
+- still expensive to do any operations in the middle of list?
+- sorting via insertion sort is best
+
+What is the strengths and weaknesses of a circular linked list?
++ simple and easy to use
++ circular design allows list to never end
++ algorithms can take advantage of circular loop to insert easier
+- need to worry about looping back
+- still expensive operations for searching
+- sorting would still be expensive
+
+What are the operations for a linked list?
+- insert(e), generally at the end of list
+- remove(), generally from front of list
+
+What is a multiply linked list?
+A linked list with 2+ link pointers. A double linked list is an example.
+
+What is a sentinel node in Linked Lists?
+The Null at the end for end-of-list.
+
+What is a stack?
+First in, last out
+
+What are the operations for stack?
+push(), insert into stack
+pop(), remove from top
+
+What is a queue?
+First in, first out
+
+What are the operations for queue?
+insert(), insert at end of queue
+remove(), remove from front of queue
+
+What is a vector?
+a dynamically sized array that grows and shrinks based on the number elements inserted.
+
+What are the operations for a vector?
+add(e, i) - insert element e at index i
+get(i) - get element at index i
+remove(i) - remove element at index i
+
+how is the vector implemented?
+the vector has an array with size N.
+When the array grows beyond a certain size m, a new array with size 2*N is created and the values are copied over to the new array.
+When the array shrinks from removing items past a certain threshold, a new array of size N/2 is created and values are copied over. 
+There is generally a minimum size that the array cannot be any smaller than.
+
+What is a good threshold for growing and shrinking a vector of size N?
+generally:
+when vector is full, double it's size.
+when vector is < 1/m, where m is > 2, shrink it's size.
+
+There are some optimizations with the copying so that when the vector is 3/4 full, create a new array and copy new values over to it, so there's less waiting for the transfer over.
+No optimizations for shrinking though, though it could just copy values over in the delete operation.
+
+What is a heap?
+an array with certain properties:
+- the array treats its elements as a binary tree
+- first element is biggest, and head of tree
+- each row is stored together, one after each other
+so 0, 1,2, 3,4,5,6 ...
+so parent = element/2;
+left child = element*2 + 1
+right child = element*2 + 2
+
+What is the heap's properties?
+1. all element's children must be smaller than it.
+2. the largest element must be the root then
+
+What are the operations for a heap?
+- add(e) add to end of array, need to reheapify up
+- remove() remove an element from the array, need to heapify down
+
+How does the add method in a heap work?
+adds elements to the end of list, and then bubble those elements up to the right position so it satisfies the heap property.
+Known as heapify-up.
+
+How to delete an element in a heap?
+swap the last element with the element to delete, D.
+remove D from the array, and bubble down the swapped element so it's at the right position.
+Known as heapify-down.
+
+How do you sort with a heap?
+1. put items into heap
+2. remove the top of the heap
+3. reheapify
+4. repeat
+
