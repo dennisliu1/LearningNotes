@@ -93,13 +93,64 @@
 		- `--font-family-sans-serif: #{meta.inspect($font-family-sans-serif)};`
 
 ## Parent Selector
-- 
+- parent selector: `&`
+- ...
 
 ## Placeholder Selectors
-- 
+- special selector type called `placeholder`
+- not added to css, but lets you extend it with more styles
+- great for not cluttering up your class namespace
 
 
-# 
+# SASS Variables
+- $variable_name
+- sass variables are:
+	- compiled away by sass; css variables stay in css output
+	- sass variables can have only one value at a time; css variables can have multiple values for multiple elements
+	- sass variables are imperative: using a variable before it's set won't change its use. CSS variables affect before and after the change!
+- !default
+	- default value assignment here. If value already exists, don't change it!
+		- assign if variable isn't defined or variable = null.
+- configuring modules
+	- @use 'library' with (
+		$black: 222,
+		$border-radius: 0.1rem
+	)
+- sass variables are block scope
+	- top level = global
+	- inside a block = local
+- shadowing
+	- local variable name === global variable name
+	- use !global to reference the global variable
+- variables inside flow control rules
+	- not a local block, just uses existing scope
+	- you can't create new variables inside a flow control block, so create them beforehand!
+- advanced variable functions
+	- meta.variable-exists()
+	- meta.global-variable-exists()
+
+# Interpolation
+- #{} => SassScript expression into css
+- usage locations
+	- selectors
+	- properties
+	- strings
+	- functions
+	- plain css @imports
+	- plan css function names
+	- comments
+- notes
+	- interpolation eats the quoted string, meaning the resulting css is missing the quotes.
+	- if you're explicitly using this feature, use `string.unquote($my_string)` instead.
+
+# At-Rules
+# Values
+# Operators
+# Built-in modules
+
+# breaking changes
+# CLI
+# JS API
 
 
 
