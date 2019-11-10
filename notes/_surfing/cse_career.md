@@ -23,7 +23,21 @@
     - https://news.ycombinator.com/item?id=21384997
     - https://v4.chriskrycho.com/2018/javascript-is-c.html
 - Basics of Unix Philosophy
-    - http://www.catb.org/~esr/writings/taoup/html/ch01s06.html#id2878263
+    - ! http://www.catb.org/~esr/writings/taoup/html/ch01s06.html#id2878263
+- Algebraic Structures: things I wish someone had explained about FP
+    - https://news.ycombinator.com/item?id=21440932
+- Some Favorite Non-Technical books (2018)
+    - https://news.ycombinator.com/item?id=21439192
+- Designing the facebook company brand
+    - https://news.ycombinator.com/item?id=21443038
+- Information is beautiful shortlist 2019
+    - https://news.ycombinator.com/item?id=21440180
+- Docbook
+    - https://news.ycombinator.com/item?id=21436245
+- if you can manage a waffle house, you can manage anything
+    - https://news.ycombinator.com/item?id=21439132
+- The happy healthy capitalists of Switzerland
+    - https://news.ycombinator.com/item?id=21443349z
 
 # Tools
 - https://standardnotes.org/
